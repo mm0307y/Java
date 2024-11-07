@@ -35,6 +35,7 @@ public class NaverBookSearch_11_07 {
         }
         return list;
     }
+    
     public static void main(String[] args) {
         NaverBookSearch_11_07 nbs = new NaverBookSearch_11_07();
         String query = "java";
