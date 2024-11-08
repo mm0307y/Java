@@ -45,7 +45,7 @@ public class BookDatTest_11_05 {
 //            return; // if문에서 return을 만나면 호출된 메서드를 탈출한다.
         }
         result = -1;
-        BookVO_11_04 pbvo = new BookVO_11_04(0,"책제목5","강감찬", "원출판", "책소개5","5.png");
+        BookVO_11_04 pbvo = new BookVO_11_04(0,"책제목5","강감찬", "원출판", "책소개5","5.png",null,null);
         result = bdt.bookDao.bookInsert(pbvo);
         if (result == 1) {
             JOptionPane.showMessageDialog(bdt.frame,"입력 성공~~~~");

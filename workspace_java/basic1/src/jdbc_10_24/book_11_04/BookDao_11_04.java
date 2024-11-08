@@ -44,6 +44,16 @@ public class BookDao_11_04 {
         if (pbvo.getB_no() > 0){
             sql.append(" where b_no = ?");
         }
+        //gubun null이 아니고 그리고 동시에 "b_name".equals(gubun)
+        else if (pbvo !=null && "b_name".equals(pbvo.getGubun())){
+            sql.append(" where b_name like '%'||?||'%'");
+        }
+        else if (pbvo !=null && "b_author".equals(pbvo.getGubun())){
+            sql.append(" where b_author like '%'||?||'%'");
+        }
+        else if (pbvo !=null && "b_publish".equals(pbvo.getGubun())){
+            sql.append(" where b_publish like '%'||?||'%'");
+        }
         else {
             sql.append(" order by b_no desc");
         }
@@ -55,6 +65,17 @@ public class BookDao_11_04 {
             if (pbvo.getB_no() > 0) {
                 pstmt.setInt(1, pbvo.getB_no());
             }
+
+            else if (pbvo !=null && "b_name".equals(pbvo.getGubun())) {
+                pstmt.setString(1, pbvo.getKeyword());
+            }
+            else if (pbvo !=null && "b_author".equals(pbvo.getGubun())) {
+                pstmt.setString(1, pbvo.getKeyword());
+            }
+            else if (pbvo !=null && "b_publish".equals(pbvo.getGubun())) {
+                pstmt.setString(1, pbvo.getKeyword());
+            }
+
 
             rs = pstmt.executeQuery();
             BookVO_11_04 bvo = null;

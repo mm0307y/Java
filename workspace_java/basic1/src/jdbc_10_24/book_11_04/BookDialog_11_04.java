@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.Book;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -146,7 +147,7 @@ public class BookDialog_11_04 extends JDialog implements ActionListener {
         if (obj == jbtn_file){ //파일 찾기 버튼 누른거야
             //[열기] 대화상자를 오픈한다.
             //경로를 줄 때 상대경로[그대로 재사용이 가능하다.]와 절대경로가 있다.[처음부터 끝까지 다주는 것 - 경로를 일일이 바꾼다.]
-            chooser.setCurrentDirectory(new File("\\D:\\workspace_java\\\\basic1\\src"));
+            chooser.setCurrentDirectory(new File("D:\\Java\\workspace_java\\basic1\\src"));
             int intRet = chooser.showOpenDialog(this);
             //yes나 ok버튼을 누른경우 처리하기
             if (intRet == JFileChooser.APPROVE_OPTION){
@@ -191,7 +192,11 @@ public class BookDialog_11_04 extends JDialog implements ActionListener {
                 pbvo.setB_img(getImg());
                 int result = bdao.bookInsert(pbvo);
                 if (result == 1){
-                    ba.refreshData();
+                    BookVO_11_04 bvo = new BookVO_11_04();
+                    bvo.setB_no(0);
+                    bvo.setGubun("전체");
+                    bvo.setKeyword("");
+                    ba.refreshData(bvo);
                 }
             }
 
@@ -204,7 +209,11 @@ public class BookDialog_11_04 extends JDialog implements ActionListener {
 //                pbvo.setB_info(getInfo());
 //                bdao.bookUpdate(pbvo);
             }
-            ba.refreshData();
+            BookVO_11_04 bvo = new BookVO_11_04();
+            bvo.setB_no(0);
+            bvo.setGubun("전체");
+            bvo.setKeyword("");
+            ba.refreshData(bvo);
             this.setVisible(false);
         }
 

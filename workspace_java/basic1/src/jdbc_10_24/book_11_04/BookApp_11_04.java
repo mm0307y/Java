@@ -3,8 +3,7 @@ package jdbc_10_24.book_11_04;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.List;
 import java.util.Vector;
 
@@ -14,8 +13,9 @@ BookDialog에서 수정이나 입력일 때 insert가 1이거나 update도 1이�
 BookApp의 메서드를 BookDialog에서 호출 해야 한다.
 이 때 부모창의 주소원본을 가져야 한다. (얕은복사)
 */
-public class BookApp_11_04 extends JFrame implements ActionListener {
+public class BookApp_11_04 extends JFrame implements ActionListener, ItemListener {
     BookDialog_11_04 bd = new BookDialog_11_04(this);
+    BookNaverSearch_11_07 bns = new BookNaverSearch_11_07(this);
     BookDao_11_04 bDao = new BookDao_11_04();
     JMenuBar mb = new JMenuBar();
 
@@ -30,13 +30,13 @@ public class BookApp_11_04 extends JFrame implements ActionListener {
     JMenuItem jmi_det = new JMenuItem("상세보기");
     JMenuItem jmi_upd = new JMenuItem("수정");
     JMenuItem jmi_del = new JMenuItem("삭제");
-
-    String imgPath = "D:\\workspace_java\\basic1\\src\\image\\book\\";
+    String imgPath = "D:\\Java\\workspace_java\\basic1\\src\\image\\book\\";
     JToolBar jtBar = new JToolBar();
     JPanel jp_center = new JPanel();
     JPanel jp_center_north = new JPanel();
 
-    String[] gubuns = {"책제목", "저자", "출판사"};
+    String[] gubuns = {"전체", "책제목", "저자", "출판사"};
+    String[] cgubuns = {"all", "b_name", "b_author", "b_publish"};
     JComboBox jcb_gubuns = new JComboBox(gubuns); //West
     JTextField jtf_keyword = new JTextField(20);
     JButton jbtn_search = new JButton("검색");
@@ -46,20 +46,22 @@ public class BookApp_11_04 extends JFrame implements ActionListener {
     JButton btn_det = new JButton("상세보기", new ImageIcon(imgPath + "detail.gif"));
     JButton btn_upd = new JButton("수정", new ImageIcon(imgPath + "update.gif"));
     JButton btn_del = new JButton("삭제", new ImageIcon(imgPath + "delete.gif"));
+    JButton btn_naver = new JButton("네이버도서검색");
 
     String[] cols = {"도서번호", "도서명", "저자", "출판사"};
     String[][] data = new String[0][4];
     DefaultTableModel dtm_book = new DefaultTableModel(data, cols);
     JTable jtb_book = new JTable(dtm_book);
     JScrollPane jsp_book = new JScrollPane(jtb_book, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+    String gubun = null; //b_name, b_author, b_publish
 
     public BookApp_11_04() {
         initDisplay();
     }
 
-    public void refreshData(){
-        System.out.println("새로고침 호출");
-        List<BookVO_11_04> bList = bDao.getBookList(new BookVO_11_04());
+    public void refreshData(BookVO_11_04 pbvo){
+        System.out.println("새로고침 호출 " + ", " + pbvo.getKeyword()+", "+pbvo.getGubun());
+        List<BookVO_11_04> bList = bDao.getBookList(pbvo);
         //UI 초기화 작업이다 - 초기화
         //전체조회를 누르면 버튼이 비활성 되지 않아서 계속 반복적으로 누를수 있다.
         //그래서 기존에 출력된 정보를 가지고 뒤에 추가되고 있다.
@@ -138,7 +140,11 @@ public class BookApp_11_04 extends JFrame implements ActionListener {
 //            System.out.println("당신이 선택한 로우의 도서 번호 : " + b_no);
             int result = bDao.bookDelete(b_no);
             if (result == 1){ //삭제가 성공ㅇ하면 1을 반환받고 실패하면 0을 반환 받는다.
-                refreshData();
+                BookVO_11_04 pbvo = new BookVO_11_04();
+                pbvo.setB_no(0);
+                pbvo.setGubun("전체");
+                pbvo.setGubun("");
+                refreshData(pbvo);
             }
         }
     }
@@ -166,12 +172,18 @@ public class BookApp_11_04 extends JFrame implements ActionListener {
         mb.add(jm_file);
         mb.add(jm_edit);
 
+
+        jcb_gubuns.addItemListener(this);
+        jtf_keyword.addActionListener(this);
+        jbtn_search.addActionListener(this);
+
         jmi_exit.addActionListener(this);
         btn_all.addActionListener(this);
         btn_ins.addActionListener(this);
         btn_det.addActionListener(this);
         btn_upd.addActionListener(this);
         btn_del.addActionListener(this);
+        btn_naver.addActionListener(this);
 
         jmi_all.addActionListener(this);
         jmi_ins.addActionListener(this);
@@ -184,6 +196,7 @@ public class BookApp_11_04 extends JFrame implements ActionListener {
         jtBar.add(btn_det);
         jtBar.add(btn_upd);
         jtBar.add(btn_del);
+        jtBar.add(btn_naver);
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setJMenuBar(mb); //메뉴바는 배치하는 것이 아니고 this에 직접 붙인다.
@@ -211,12 +224,22 @@ public class BookApp_11_04 extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
         //서로 같은 역할을 하는 메뉴 아이템과 버튼에 대해서 하나의 메서드로 설계한다.
-        if(obj == btn_ins){
+        if (obj == jtf_keyword || obj == jbtn_search){
+            BookVO_11_04 pbvo = new BookVO_11_04();
+            pbvo.setGubun(gubun);
+            pbvo.setKeyword(jtf_keyword.getText());
+            jtf_keyword.setText("");
+            refreshData(pbvo);
+        }
+        else if(obj == btn_ins){
             insertActionPerformed();
         }
-
         else if (obj == jmi_all || obj == btn_all){
-            refreshData();
+            BookVO_11_04 pbvo = new BookVO_11_04();
+            pbvo.setB_no(0);
+            pbvo.setGubun("전체");
+            pbvo.setKeyword("");
+            refreshData(pbvo);
         }
 
         else if (obj == jmi_ins){
@@ -234,11 +257,27 @@ public class BookApp_11_04 extends JFrame implements ActionListener {
         else if (obj == jmi_del || obj == btn_del){
             deleteActionPerformed();
         }
+        else if (obj == btn_naver){
+            bns.setVisible(true);
+        }
 
         else if (obj == jmi_exit){
             System.exit(0);
         }
     }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        Object obj = e.getSource();
+        if (obj == jcb_gubuns){
+            if (e.getStateChange() == ItemEvent.SELECTED){
+                //gubun에서 가져오면 책이름, 저자, 출판ㄴ사로 한글 이름이어서 컬럼명이 아니다.
+                //선택한 컬럼명에 대한 영문 컬럼명이 필요하다.
+                gubun =cgubuns[jcb_gubuns.getSelectedIndex()];
+                System.out.println("선택한 컬럼명은 " + gubun); //gubun은 멤버변수로 한다.
+            }//콤보박스에서 선택한 갑시 변경되었을 때 인터셉트한다.
+        }////end of if
+    }////end of itemStateChanged
 }
 /*
 메뉴바 추가하기

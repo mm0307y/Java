@@ -14,7 +14,6 @@ import java.util.HashMap; //Map의 구현체 클래스이다.(Hashtable)
 import java.util.List;
 import java.util.Map; //Map은 인터페이스 이다.
 
-
 public class ApiExamSearchBook_11_07 {
     public List<Map<String, Object>> getBookList(String result){
         List<Map<String, Object>> list = new ArrayList<>();
