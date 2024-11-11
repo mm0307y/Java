@@ -99,7 +99,6 @@ public class BookApp_11_04 extends JFrame implements ActionListener, ItemListene
             JOptionPane.showMessageDialog(this, "상제조회 할 로우를 선택하세요.", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
         BookVO_11_04 pbvo = new BookVO_11_04();
         //b_no = 0인 상태
         pbvo.setB_no(b_no); //0이었지만 여기서 값이 바뀐다. 0보다 큰 값으로 변한다.
@@ -110,7 +109,7 @@ public class BookApp_11_04 extends JFrame implements ActionListener, ItemListene
             bd.set("상세보기", true, bvo, false);
         }
         else {
-            JOptionPane.showMessageDialog(this, "조회결과가 없습니다.","Info", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "조회결과가 없습니다.","Info", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
     }
@@ -118,7 +117,31 @@ public class BookApp_11_04 extends JFrame implements ActionListener, ItemListene
     //수정일 때 호출 - 수정 버튼 | 수정 메뉴 아이템 일 때
     public void updateActionPerformed(){
         System.out.println("수정 버튼 | 수정 메뉴 아이템 일 때");
-        bd.set("수정", true, null, true);
+
+        int one = -1;
+        one = jtb_book.getSelectedRow();
+        int b_no = 0; //select문에서 where b_no = ? ?에 들어갈 숫자
+        b_no = Integer.parseInt(dtm_book.getValueAt(one, 0).toString()); //앞의 자리가 로우 뒤에가 컬럼
+        if (one < 0){
+            JOptionPane.showMessageDialog(this, "상제조회 할 로우를 선택하세요.", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        BookVO_11_04 pbvo = new BookVO_11_04();
+        //b_no = 0인 상태
+        pbvo.setB_no(b_no); //0이었지만 여기서 값이 바뀐다. 0보다 큰 값으로 변한다.
+        List<BookVO_11_04> bList = bDao.getBookList(pbvo);
+        //bList = 1
+        if (bList.size() == 1){
+            BookVO_11_04 bvo = bList.get(0); //사용자가 선택한 로우의 값을 담았다. 난 null이 아니야
+            //4번째 파라미터는 JTextField의 수정 여부를 결정한다.
+//            bd.set("상세보기", true, bvo, false); //read only
+            bd.set("수정", true, bvo, true);
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "조회결과가 없습니다.","Info", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
     }
 
     //삭제 일때 호출 - 삭제 버튼 | 삭제 메뉴 아이템 일 때
@@ -139,7 +162,7 @@ public class BookApp_11_04 extends JFrame implements ActionListener, ItemListene
             b_no = Integer.parseInt(dtm_book.getValueAt(one, 0).toString()); //앞의 자리가 로우 뒤에가 컬럼
 //            System.out.println("당신이 선택한 로우의 도서 번호 : " + b_no);
             int result = bDao.bookDelete(b_no);
-            if (result == 1){ //삭제가 성공ㅇ하면 1을 반환받고 실패하면 0을 반환 받는다.
+            if (result == 1){ //삭제가 성공하면 1을 반환받고 실패하면 0을 반환 받는다.
                 BookVO_11_04 pbvo = new BookVO_11_04();
                 pbvo.setB_no(0);
                 pbvo.setGubun("전체");
@@ -224,15 +247,16 @@ public class BookApp_11_04 extends JFrame implements ActionListener, ItemListene
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
         //서로 같은 역할을 하는 메뉴 아이템과 버튼에 대해서 하나의 메서드로 설계한다.
-        if (obj == jtf_keyword || obj == jbtn_search){
+        if (obj == btn_naver){
+            bns.setVisible(true);
+        }
+
+        else if (obj == jtf_keyword || obj == jbtn_search){
             BookVO_11_04 pbvo = new BookVO_11_04();
             pbvo.setGubun(gubun);
             pbvo.setKeyword(jtf_keyword.getText());
             jtf_keyword.setText("");
             refreshData(pbvo);
-        }
-        else if(obj == btn_ins){
-            insertActionPerformed();
         }
         else if (obj == jmi_all || obj == btn_all){
             BookVO_11_04 pbvo = new BookVO_11_04();
@@ -241,13 +265,8 @@ public class BookApp_11_04 extends JFrame implements ActionListener, ItemListene
             pbvo.setKeyword("");
             refreshData(pbvo);
         }
-
-        else if (obj == jmi_ins){
+        else if(obj == btn_ins || obj == jmi_ins) {
             insertActionPerformed();
-        }
-        //상세보기 버튼이나 상세보기 아이템을 눌렀을때
-        else if (obj == jmi_det || obj == btn_det){
-            detailActionPerformed();
         }
 
         else if (obj == jmi_upd || obj == btn_upd){
@@ -257,8 +276,10 @@ public class BookApp_11_04 extends JFrame implements ActionListener, ItemListene
         else if (obj == jmi_del || obj == btn_del){
             deleteActionPerformed();
         }
-        else if (obj == btn_naver){
-            bns.setVisible(true);
+
+        //상세보기 버튼이나 상세보기 아이템을 눌렀을때
+        else if (obj == jmi_det || obj == btn_det){
+            detailActionPerformed();
         }
 
         else if (obj == jmi_exit){

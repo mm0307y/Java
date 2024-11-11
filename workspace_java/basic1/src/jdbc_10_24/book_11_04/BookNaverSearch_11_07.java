@@ -2,8 +2,9 @@ package jdbc_10_24.book_11_04;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import day1_10_07.variable.A1;
-import okhttp3.*;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -11,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,7 +102,7 @@ public class BookNaverSearch_11_07 extends JDialog implements ActionListener, It
         this.add("Center", jsp_book);
         this.add(jsp_book);
         this.setSize(700, 500);
-        this.setVisible(true);
+        this.setVisible(false);
     }
 
     public static void main(String[] args) {

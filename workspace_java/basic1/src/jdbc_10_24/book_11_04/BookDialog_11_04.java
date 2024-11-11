@@ -202,12 +202,23 @@ public class BookDialog_11_04 extends JDialog implements ActionListener {
 
             //너 수정이니?
             else {
-//                BookVO_11_04 pbvo = new BookVO_11_04();
-//                pbvo.setB_name(getB_title());
-//                pbvo.setB_author(getAuthor());
-//                pbvo.setB_publish(getPublish());
-//                pbvo.setB_info(getInfo());
-//                bdao.bookUpdate(pbvo);
+                System.out.println("수정하기 진행 사용자가 선택한 도서 번호 : " + bvo.getB_no());
+                BookVO_11_04 pbvo = new BookVO_11_04();
+                //화면으로 부터 입력받는 값이 아니라 set호출시 3번째 인자로 넘어온
+                //그 번호가 사용자가 수정하려는 번호입니다.
+                pbvo.setB_no(bvo.getB_no());
+                pbvo.setB_name(getB_title());
+                pbvo.setB_author(getAuthor());
+                pbvo.setB_publish(getPublish());
+                pbvo.setB_info(getInfo());
+                int result = bdao.bookUpdate(pbvo);
+                if (result == 1){ //수정이 성공했을 때
+                    BookVO_11_04 bvo = new BookVO_11_04();
+                    bvo.setB_no(0);
+                    bvo.setGubun("전체");
+                    bvo.setKeyword("");
+                    ba.refreshData(bvo);
+                }
             }
             BookVO_11_04 bvo = new BookVO_11_04();
             bvo.setB_no(0);

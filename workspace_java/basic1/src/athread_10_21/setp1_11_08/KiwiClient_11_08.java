@@ -28,7 +28,7 @@ public class KiwiClient_11_08 extends JFrame {
     public KiwiClient_11_08(LoginApp_11_08 loginApp) {
         this.loginApp = loginApp;
         initDisplay();
-        connect_process();
+        //connect_process();
     }
 
     //이 메서드는 initDisplay()호출 한 뒤에 호출해야 합니다.
@@ -52,7 +52,7 @@ public class KiwiClient_11_08 extends JFrame {
         //tp.addTab("대기실", wr);
         //tp.addTab("단톡방", mr);
         this.setSize(650,580);
-        this.setVisible(true);
+        this.setVisible(false);
     }
 
     public static void main(String[] args) {

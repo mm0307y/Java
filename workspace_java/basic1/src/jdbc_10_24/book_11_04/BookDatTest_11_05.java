@@ -6,7 +6,23 @@ import java.util.List;
 public class BookDatTest_11_05 {
     JFrame frame = new JFrame();
     BookDao_11_04 bookDao = new BookDao_11_04();
-    public int bookDeleteTest(int b_no){
+    public int bookUpdate (BookVO_11_04 pbvo){
+        int result = -1;
+        pbvo  = new BookVO_11_04();
+        pbvo.setB_name("제목8");
+        pbvo.setB_author("저자8");
+        pbvo.setB_publish("출판사8");
+        pbvo.setB_no(8);
+        result = bookDao.bookUpdate(pbvo);
+        return result;
+    }
+
+    public int bookUpdate(int b_no, String b_name, String b_author, String b_publish){
+        int result = -1;
+        return result;
+    }
+
+    public int bookUpdateTest (int b_no){
         int result = -1;
         result = bookDao.bookDelete(b_no);
         return result;
@@ -17,7 +33,6 @@ public class BookDatTest_11_05 {
         BookVO_11_04 pbvo = new BookVO_11_04();
         pbvo.setB_no(0);
         List<BookVO_11_04> bList = bookDao.getBookList(pbvo);
-
         //b_no가 0이면 where 절이 추가되지 않아서 전체 조회가 된다. - 4
         //b_no가 1이면 where 절이 반영되니까 한 건이 조회가 된다. -1
         //b_no가 2이면 where 절이 반영되니까 한 건이 조회가 된다. -1
@@ -31,10 +46,17 @@ public class BookDatTest_11_05 {
 //        System.out.println(bList.get(0).getB_author());
     }
 
+    /*
+    자바에서는 입력,  수정, 삭제시에 오토커밋이 일언나고 있다.
+    그래서 rollback을 하더라도 이전 상태로 돌아갈 수 없다.
+     */
+
     public static void main(String[] args) {
         BookDatTest_11_05 bdt = new BookDatTest_11_05();
         int result = -1;
-        result = bdt.bookDeleteTest(4);
+        result = bdt.bookUpdate(null);
+        System.out.println("성공 여부 : " + result);
+        /*result = bdt.bookDeleteTest(4);
 
         if (result == 1) {
             JOptionPane.showMessageDialog(bdt.frame, "삭제 성공!!!!!!!!!!");
@@ -53,9 +75,10 @@ public class BookDatTest_11_05 {
         }else {
             JOptionPane.showMessageDialog(bdt.frame,"입력 실패~~~");
             return;
-        }
-
+        }*/
     }
+
+
 }
 /*
 테스트 시나리오를 알고 있다. -> 잘하는 사람 - 전체 구조파악 - 업무 이해

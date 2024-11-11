@@ -26,7 +26,7 @@ public class LoginApp_11_08 extends JFrame implements ActionListener {
     JLabel jlb_join = new JLabel();//회원가입 라벨버튼
     JLabel jlb_infomissing = new JLabel();
     Font f_join = new Font("맑은 고딕", Font.PLAIN, 12);
-    String imgPath = "src\\image\\profile\\";
+    String imgPath = "D:\\Java\\workspace_java\\basic1\\src\\image\\profile\\";
     ImageIcon img_logo = new ImageIcon(imgPath+"default_profile.png");
     JButton jbtn_main = new JButton(img_logo);
     JButton jbtn_login = new JButton("로그인");

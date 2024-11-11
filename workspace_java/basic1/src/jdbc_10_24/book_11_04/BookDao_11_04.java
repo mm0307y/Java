@@ -75,11 +75,8 @@ public class BookDao_11_04 {
             else if (pbvo !=null && "b_publish".equals(pbvo.getGubun())) {
                 pstmt.setString(1, pbvo.getKeyword());
             }
-
-
             rs = pstmt.executeQuery();
             BookVO_11_04 bvo = null;
-
             while(rs.next()){
                 bvo = new BookVO_11_04();
                 bvo.setB_no(rs.getInt("b_no"));//도서일련변호
@@ -141,12 +138,37 @@ public class BookDao_11_04 {
      *     ,b_author = ?
      *     ,b_publish = ?
      * @param bvo
-     * @return
+     * @return 1이면 수정 성공, 0이면 수정 실패
      * 하나의 클래스에 여러개의 변수를 넘길 수 있다.
      ****************************************************************************/
 
     public int bookUpdate(BookVO_11_04 bvo){
-        int result = -1; //1이면 수정 성공, 0이면 수정 실패, 그래서 초기값을 -1로 한다.
+        int result = -1;//1이면 수정 성공, 0이면 수정 실패, 그래서 초기값을 -1로 함
+        StringBuilder sql = new StringBuilder();
+        sql.append("UPDATE book152");
+        sql.append("       SET b_name = ?");
+        sql.append("            , b_author = ?");
+        sql.append("            , b_publish = ?");
+        sql.append("  WHERE b_no = ?");
+        try {
+            conn = dbMgr.getConnection();
+            //update, insert, delete 등 하자마자 즉시 커밋이 발동한다.
+            //conn.setAutoCommit(false); //생략할 수 있다. true가 디폴트 값 이다.
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setString(1, bvo.getB_name());
+            pstmt.setString(2, bvo.getB_author());
+            pstmt.setString(3, bvo.getB_publish());
+            pstmt.setInt(4, bvo.getB_no());
+            result = pstmt.executeUpdate();
+        }
+        catch (Exception e) {
+            System.out.println(sql.toString());
+        }
+        finally { //사용한 자원을 회수하는 코드
+            dbMgr.freeConnection(conn, pstmt);
+        }
+
+
         return result;
     }
 
