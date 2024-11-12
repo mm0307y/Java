@@ -33,7 +33,7 @@
     "editor.tokenColorCustomizations": {
       //"comments": "#ffc2c2"
       //"comments": "#0aef47"
-      "comments": "#01a2b1"
+      "comments": "#01a2b1" //주석 색깔변환하는 코드
     },
     "[css]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"

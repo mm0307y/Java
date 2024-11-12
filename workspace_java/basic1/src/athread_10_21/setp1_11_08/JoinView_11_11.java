@@ -139,7 +139,16 @@ public class JoinView_11_11 extends JDialog implements ActionListener {
                 JOptionPane.showMessageDialog(this, "아이디 중복검사가 필수 입니다.", "info", JOptionPane.INFORMATION_MESSAGE);
             }else {
                 //정상적으로 회원가입 처리하기 tDao.memberInsert(MemberVO pbvo)
-                System.out.println("회원가입 처리 진행합니다.");
+                //System.out.println("회원가입 처리 진행합니다.");
+                int result = -1;
+                result = tDao.memberInsert(jtf_id.getText(), jtf_pw.getText(), jtf_nickName.getText(), jtf_name.getText() ,jtf_birth.getText(), jtf_phone.getText());
+                if (result == 1) {
+                    JOptionPane.showMessageDialog(this,"가입이 완료되었습니다.", "info", JOptionPane.INFORMATION_MESSAGE);
+                    this.setVisible(false);
+                }
+                else {
+                    JOptionPane.showMessageDialog(this, "가입에 실패 하셨습니다.", "info", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         }
 
