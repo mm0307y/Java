@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MessageRoom_11_05 extends JFrame implements ActionListener {
+public class MessageRoom2_11_05 extends JFrame implements ActionListener {
     JPanel jp_center = new JPanel(); //색상, 정렬, 버튼, JLabel
     JScrollPane jsp_center = new JScrollPane(jp_center, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     JPanel jp_south = new JPanel();
@@ -14,7 +14,7 @@ public class MessageRoom_11_05 extends JFrame implements ActionListener {
     //홀수이면 초록, 짝수이면 오렌지
     int i = 1; //멤버변수
 
-    public MessageRoom_11_05() {
+    public MessageRoom2_11_05() {
         initDisplay();
     } ////end of MessageRoom
 
@@ -33,7 +33,7 @@ public class MessageRoom_11_05 extends JFrame implements ActionListener {
     } ////end of initDisplay
 
     public static void main(String[] args) {
-        new MessageRoom_11_05();
+        new MessageRoom2_11_05();
     } ////end of main
 
     @Override

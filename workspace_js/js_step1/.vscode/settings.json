@@ -13,7 +13,7 @@
       "**/.settings": true,
       "**/.factorypath": true
     },
-    "editor.tabSize": 4,
+    "editor.tabSize": 2,
     "editor.lineHeight": 1.6,
     "editor.fontLigatures": false,
     "workbench.colorTheme": "Default Dark Modern",
@@ -66,7 +66,7 @@
       "editor.formatOnType": true
     },
     "terminal.integrated.tabs.enabled": false,
-    "editor.fontSize": 15,
+    "editor.fontSize": 14,
     "editor.wordWrap": "off",
     "terminal.integrated.fontFamily": "monospace",
     "editor.mouseWheelZoom": true,

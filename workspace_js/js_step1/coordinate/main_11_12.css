@@ -20,8 +20,16 @@ body{
 }
 
 .target{
-    position: absolute;
+    
     top: 50%;
     left: 50%;
+    position: absolute;
     transform:translate(-50%, -50%);
+}
+
+.tag{
+    color: white;
+    position: absolute; /* default static이라서 변경이 안된다. */
+    font-size: 38px;
+    transform: translate(20px, 20px);
 }
