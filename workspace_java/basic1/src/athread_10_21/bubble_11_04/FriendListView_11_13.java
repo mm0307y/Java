@@ -70,7 +70,6 @@ public class FriendListView_11_13 extends JFrame implements ActionListener {
             dbMgr.freeConnection(conn, pstmt, rs);
         }
 
-
         return list;
     }
 
