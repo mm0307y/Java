@@ -26,6 +26,7 @@ public class DBConnectionMgr_10_28 {
     public final static String _URL = "jdbc:oracle:thin:@localhost:1521:orcl11";
     public final static String _USER = "scott";
     public final static String _PW = "tiger";
+
     public DBConnectionMgr_10_28(){}
     //메서드를 활용하여 객체를 생성하기 - 세련된 코드
     //선택(if문 - 조건문)적으로 객체를 생성한다.
