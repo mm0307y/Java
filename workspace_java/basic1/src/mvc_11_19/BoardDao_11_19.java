@@ -55,8 +55,12 @@ public class BoardDao_11_19 {
      *********************************************************************/
     public Map<String, Object> boardDetail(int b_no) {
         System.out.println("Board Detail called");
-        Map<String, Object> map = new HashMap<String, Object>();
-        return map;
+        Map<String, Object> rmap = new HashMap<String, Object>();
+        rmap.put("b_no", 1);
+        rmap.put("b_title", "글제목 1");
+        rmap.put("b_writer", "강감찬");
+        rmap.put("b_content", "글 내용");
+        return rmap;
     }
 
     /********************************************************************
@@ -69,8 +73,18 @@ public class BoardDao_11_19 {
      * @return list
      *********************************************************************/
     public List<Map<String, Object>> boardList(BoardVO_11_19 pbvo) {
-        System.out.println("Board List Called");
+        System.out.println("BoardDao Board List Called");
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        Map<String, Object> rmap = new HashMap<>();
+        rmap.put("b_no", 1);
+        rmap.put("b_title", "글제목 1");
+        rmap.put("b_writer", "강감찬");
+        list.add(rmap);
+        rmap = new HashMap<>();
+        rmap.put("b_no", 2);
+        rmap.put("b_title", "글제목 2");
+        rmap.put("b_writer", "이성계");
+        list.add(rmap);
         return list;
 
     }
