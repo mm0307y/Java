@@ -30,6 +30,9 @@ const onAdd = ()=> {
 // onAdd함수에서 호출하는 함수 입니다.
 // onAdd함수에서는 사용자가 입력한 상품을 파라미터로 넘긴다.
 const createItem = (text) => {
+  // 태그를 문자열로 처리하였기에 직접 이벤트 적용이 불가하다.
+  // 이럴 경우에는 무조건 DOM API를 활용하여 태그를 생성해야 한다.
+  // 이러면 이벤트 적용을 직접할 수 있다. - 그냥 문자열이 아니라 HTMLElement취급을 받는다.
   const itemRow = `
     <li class="item_row">
       <div class="item">
