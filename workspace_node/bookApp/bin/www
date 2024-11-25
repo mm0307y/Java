@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-
+// 프로젝트 루트 아래 app.js를 참조하는 코드 추가
 var app = require('../app');
 var debug = require('debug')('bookapp:server');
 var http = require('http');
@@ -12,7 +12,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '8000');
+var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**

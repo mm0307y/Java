@@ -61,7 +61,38 @@
         <img src="/images/header04.png" alt="배너ChatGPT" width="100%" />
     </div>
 </div>
+<script type="module">
+    import { app } from '/javascripts/firebase_11_25.js'
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+    const auth = getAuth(app)
+    $("#logout").on("click", (e) => {
+        const auth = getAuth();
+        signOut(auth).then(() => {
+            console.log("로그아웃 성공")
+        }).catch((error) => {
+            consloe.log(error)
+        });
+        // removeItem은 하나씩 지워야 하는데 clear()은 한번에 삭제된다.
+        // localStorage.removeItem("uid")
+        // localStorage.removeItem("email")
+        localStorage.clear()
+        location.href = "/"
+    })
+
+</script>
+
 <script>
+    console.log(`로그인 성공시 uid ===> ${localStorage.getItem("uid")}, ${localStorage.getItem("email")}`)
+    
+    if(localStorage.getItem('email')) {
+        console.log("email이 존재하면")
+        // 메뉴바에 메뉴가 로그인일때와 로그인 이전일 때 달라야한다.
+        // jquery에서 제공하는 toggle()을 사용하면 보이는 건 안보이게 안보이는건 보이게 처리해준다.
+        $("#login, #logout, #mypage" ).toggle()
+        $("#mypage a").html(localStorage.getItem("email")) // innerHTML과 같다. 태그는 안 보인다.
+        // $("#mypage a").text(localStorage.getItem("email")) // text는 innerText와 같다.
+        // 태그가 그래로 출력이 된다.
+    }
     applySlider();
     function applySlider() {
         $('#slider-div').slick({

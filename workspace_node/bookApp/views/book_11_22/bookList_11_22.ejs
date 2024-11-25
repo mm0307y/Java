@@ -34,12 +34,12 @@
             headers: { Authorization: "KakaoAK 6b10a8106270f172344447e5cec8953b" },
             data: { query: query, page: page, size:30 },
             dataType: "json",
-            success: function (date) {
-                // console.log(date)
+            success: function (data) {
+                // console.log(data)
                 // 마지막 페이지 체크
-                let is_end = date.meta.is_end // false 책이 더 있어, true : 마지막 페이지가 맞다.
+                let is_end = data.meta.is_end // false 책이 더 있어, true : 마지막 페이지가 맞다.
                 // 검색 가능한 데이터 수
-                let total = date.meta.total_count // 자바의 경우 5006
+                let total = data.meta.total_count // 자바의 경우 5006
                 // 마지막 페이지 번호는 얼마야?
                 let last = Math.ceil(total / 10)
                 console.log(`is_end : ${is_end}, total : ${total}, last : ${last}`)

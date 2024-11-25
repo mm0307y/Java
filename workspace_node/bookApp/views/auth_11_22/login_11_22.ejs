@@ -17,3 +17,34 @@
         </form>
     </div>
 </div>
+
+<script type="module">
+    import { app } from "/javascripts/firebase_11_25.js"
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+    const auth = getAuth(app)
+    // console.log(auth);
+$(frm).on("submit", (e) => {
+    e.preventDefault()
+    let email = $(frm.email).val()
+    let password = $(frm.password).val()
+    console.log(`${email}, ${password}`)
+
+    signInWithEmailAndPassword(auth, email, password)
+        .then((response) => {
+            // Signed in
+            console.log(response)
+            console.log(`uid ===> ${response.user.uid}`)
+            console.log(`email ===> ${response.user.email}`)
+            localStorage.setItem ("uid", response.user.uid)
+            localStorage.setItem ("email", response.user.email)
+            
+            //로그인 성공하면 메인페이지로 이동하기
+            location.href = "/"
+            // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+        });
+})
+</script>
