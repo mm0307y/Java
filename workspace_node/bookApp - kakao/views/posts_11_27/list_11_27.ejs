@@ -1,0 +1,25 @@
+<style>
+  .heart0, .heart1 {  cursor: pointer; float: right; color: red; font-size: 1.5rem; }
+  .fcnt { font-size: 0.5rem; float:right; margin-top: 15px; }
+</style>
+<div class="row my-2">
+  <div class="col">
+      <h1 class="text-center mb-2">게시글</h1>
+      <div class="text-end">
+          <button class="btn btn-primary btn-sm" id="btn-write">글쓰기</button>
+      </div>
+      <div id="posts"></div>
+      <div class="text-center my-3" id="btn-group" style="display:none">
+          <button class="btn btn-primary btn-sm" id="btn-prev">이전</button>
+          <span class="px-2" id="span-page">1</span>
+          <button class="btn btn-primary btn-sm" id="btn-next">다음</button>
+      </div>
+  </div>
+</div>
+<script type="module">
+  $("#btn-write").on("click", () =>{
+    // email이 있으면 글쓰기로 이동해줘
+    location.href="/posts/write"
+  })
+
+</script>

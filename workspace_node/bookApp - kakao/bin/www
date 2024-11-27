@@ -19,7 +19,7 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+var server = http.createServer(app); // 서버를 시작해주는 코드
 
 /**
  * Listen on provided port, on all network interfaces.

@@ -23,7 +23,6 @@
   </div>
 </div>
 
-
 <script type="module">
   import { app } from "/javascripts/firebase_11_25.js"
   import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
@@ -39,7 +38,7 @@
       .then((data) => {
         // 요청이 정상이면 서버로 부터 response변수에 정보를 돌려받는다. - 콜백
         // Signed in
-        console.log(response)
+        console.log(data)
         console.log(`uid ===> ${data.user.uid}`)
         console.log(`email ===> ${data.user.email}`)
         localStorage.setItem("email", data.user.email)
