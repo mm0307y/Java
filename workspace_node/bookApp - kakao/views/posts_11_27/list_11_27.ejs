@@ -1,25 +1,79 @@
 <style>
-  .heart0, .heart1 {  cursor: pointer; float: right; color: red; font-size: 1.5rem; }
-  .fcnt { font-size: 0.5rem; float:right; margin-top: 15px; }
+  .heart0,
+  .heart1 {
+    cursor: pointer;
+    float: right;
+    color: red;
+    font-size: 1.5rem;
+  }
+
+  .fcnt {
+    font-size: 0.5rem;
+    float: right;
+    margin-top: 15px;
+  }
 </style>
 <div class="row my-2">
   <div class="col">
-      <h1 class="text-center mb-2">게시글</h1>
-      <div class="text-end">
-          <button class="btn btn-primary btn-sm" id="btn-write">글쓰기</button>
-      </div>
-      <div id="posts"></div>
-      <div class="text-center my-3" id="btn-group" style="display:none">
-          <button class="btn btn-primary btn-sm" id="btn-prev">이전</button>
-          <span class="px-2" id="span-page">1</span>
-          <button class="btn btn-primary btn-sm" id="btn-next">다음</button>
-      </div>
+    <h1 class="text-center mb-2">게시글</h1>
+    <div class="text-end">
+      <button class="btn btn-primary btn-sm" id="btn-write">글쓰기</button>
+    </div>
+    <div id="posts"></div>
+    <div class="text-center my-3" id="btn-group" style="display:none">
+      <button class="btn btn-primary btn-sm" id="btn-prev">이전</button>
+      <span class="px-2" id="span-page">1</span>
+      <button class="btn btn-primary btn-sm" id="btn-next">다음</button>
+    </div>
   </div>
 </div>
-<script type="module">
-  $("#btn-write").on("click", () =>{
-    // email이 있으면 글쓰기로 이동해줘
-    location.href="/posts/write"
-  })
 
+<script type="text/x-handlebars-template" id="temp-posts">
+  <!-- each 옆에 depts대신에 카카오 도서 검색 결과 라벨은 documents 배열의 이름
+  만일 이름이 다르면 출력이 안된다. 주의
+  템플릿에서 JSON데이터 안의 JSON 데이터는 .으로 호출한다.
+  -->
+
+{{#each this}}
+<!-- 아래 구간이 n번 반복해야 한다. 원래면 for문 또는 while문을 사용해야 한다. -->
+<div class="card my-2">
+  <div class="card-body">
+    <a href="#">{{ title }}</a>
+    <div class="ellipsis">{{body}}</div>
+  </div>
+  <div class="card-footer">
+    <span>Posted on {{ date }} by {{ email }}</span>
+  </div>
+  {{/each}}
+</script>
+
+<script type="module">
+  import { app } from "/javascripts/firebase_11_25.js"
+  import { getFirestore, getDocs, collection, query, orderBy } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js"
+  const db = getFirestore(app)
+  // 브라우저 로컬저장소에 있는 값을 읽어오기
+  const email = localStorage.getItem("email")
+
+  getList()
+  async function getList() {
+    const q = query(collection(db, "posts"), orderBy('date', "desc"))
+    const snapshot = await getDocs(q)
+    console.log(snapshot.empty)
+    // firestore에서 가져온 collection이 없다면 아래 코드를 진행할 필요가 없어서 
+    // return을 사용한다.
+    if (snapshot.empty) {
+      console.log("조회된 데이터가 없습니다.")
+      return // 함수를 빠져 나간다. 왜냐하면 바인딩할 데이터셋이 없으므로
+    }
+
+    const posts = snapshot.docs.map(doc => doc.data())
+    console.log(posts)
+    let temp = Handlebars.compile(document.querySelector("#temp-posts").innerHTML)
+    document.querySelector("#posts").innerHTML = temp(posts)
+  }
+
+  $("#btn-write").on("click", () => {
+    // email이 있으면 글쓰기로 이동해줘
+    location.href = "/posts/write"
+  })
 </script>
