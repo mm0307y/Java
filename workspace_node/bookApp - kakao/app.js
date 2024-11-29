@@ -4,8 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var indexRouter = require('./routes/index'); // 라우터 생성
+var usersRouter = require('./routes/users'); // 라우터 생성
 
 var app = express();
 
@@ -17,10 +17,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); // 정적페이지에 대한 지원 설정 - 서버의 물리적인 배포 위치이다.
 
+// 위에서 생성한 라우터 설정을 실행하는 코드
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/users', usersRouter); // 대시보드, 마이페이지, 장바구니 같은 권한을 가지고 진행되는 메뉴이다. 확인 잘해야 된다.
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
