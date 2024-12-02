@@ -32,13 +32,13 @@ router.get('/posts/write', function(req, res, next) {
 router.get('/posts/:id', function(req, res, next) {
   // 사용자가 선택한 값을 쿼리스트링으로 받아오는 코드 추가한다.
   let id = req.params.id
-  res.render('index', { title: '상세보기', pageName : 'posts_11_27/read_11_27.ejs' });
+  res.render('index', { title: '상세보기', pageName : 'posts_11_27/read_11_27.ejs', id:id });
 });
 
 router.get('/posts/update/:id', function(req, res, next) {
   // 사용자가 선택한 값을 쿼리스트링으로 받아오는 코드 추가한다.
   let id = req.params.id
-  res.render('index', { title: '글수정', pageName : 'posts_11_27/update_11_27.ejs' });
+  res.render('index', { title: '글수정', pageName : 'posts_11_27/update_11_27.ejs', id:id });
 });
 
 module.exports = router;

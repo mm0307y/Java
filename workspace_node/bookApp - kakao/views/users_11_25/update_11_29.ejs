@@ -5,15 +5,15 @@
       <form name="frm" method="post">
         <div class="input-group my-2">
           <div class="input-group-text px-5">성명</div>
-          <input class="form-control" name="name" value="나잘난" />
+          <input class="form-control" name="name"/>
         </div>
         <div class="input-group my-2">
           <div class="input-group-text px-5">주소</div>
-          <input class="form-control" name="address" value="서울특별시 금천구 가산디지털2로" />
+          <input class="form-control" name="address"/>
         </div>
         <div class="input-group my-2">
           <div class="input-group-text px-5">전화</div>
-          <input class="form-control" name="phone" value="010-1010-2020" />
+          <input class="form-control" name="phone"/>
         </div>
         <div>
           <img id="fileName" src="https://placehold.co/200x200" width="30%" />
@@ -35,10 +35,26 @@
   */
   import { app } from "/javascripts/firebase_11_25.js"
   // to do -> addDoc와 setDoc의 차이점이 뭔지?, NoSQL의 경우 입력과 수정을 구분하지 않습니다.
-  import { getFirestore, setDoc, doc, collection } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js"
-  const db = getFirestore(app)
+  import { getFirestore, setDoc, doc, collection, getDoc } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js"
+  import { getStorage, uploadBytes, getDownloadURL, ref } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js"
+
+  const db = getFirestore(app) // firebase-firestore사용할 때
+  const storage = getStorage(app) // firebase-storage사용할 때
   const uid = localStorage.getItem("uid")
   console.log(`uid : ${uid}`)
+
+  // 수정하기 화면을 열때 firestore에 접속하여 사용자 정보를 가져와 화면에 출력하기
+  const snapshot = await getDoc(doc(db, `users/${uid}`))
+  if (snapshot.data()) {
+    const user = snapshot.data()
+    $(frm.name).val(user.name)
+    $(frm.address).val(user.address)
+    $(frm.phoen).val(user.phoen)
+    $(frm.email).val(user.email )
+
+    // 사진이 존재하면
+    if (user.photo) $("#fileName").attr("src", user.photo)
+  }
 
   // submit사용시 새로고침이 발생하므로 반드시 이벤트 연결을 끊어야 한다.
   $(frm).on("submit", async (e) => {
@@ -49,14 +65,38 @@
       const phone = $(frm.phone).val()
       const email = localStorage.getItem("email")
       // console.log(`${uid}, ${name}, ${address}, ${phone}, ${email}`)
-      await setDoc(doc(db, `users/${uid}`), {
-        // 키와 벨류가 같을 때는 벨류를 정하지 않아도 된다. ex) email: email -> email
-        email: email,
-        name: name,
-        address: address,
-        phone: phone
-      })
+
+      // 사진파일이 존재하면
+      if (frm.file.files[0]) {
+        const snapshot = await uploadBytes(ref(storage, `/photo/${Date.now()}`), frm.file.files[0])
+        const url = await getDownloadURL(snapshot.ref)
+
+        await setDoc(doc(db, `users/${uid}`), {
+          // 키와 벨류가 같을 때는 벨류를 정하지 않아도 된다. ex) email: email -> email
+          email: email,
+          name: name,
+          address: address,
+          phone: phone,
+          photo: url
+        })
+      }
+      else {
+        const photo = $("#fileName").attr("src")
+        await setDoc(doc(db, `users/${uid}`), {
+          // 키와 벨류가 같을 때는 벨류를 정하지 않아도 된다. ex) email: email -> email
+          email: email,
+          name: name,
+          address: address,
+          phone: phone,
+          photo: photo
+        })
+      }
+      alert("사용자 정보가 변경되었습니다.")
       location.href = "/users/mypage"
     } //// end of if
+  })
+
+  $(frm.file).on("change", function (e) {
+    $("#fileName").attr("src", URL.createObjectURL(e.target.files[0]))
   })
 </script>
