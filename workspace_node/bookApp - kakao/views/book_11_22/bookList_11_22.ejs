@@ -14,7 +14,7 @@
 
 <!-- 카카오 도서검색 결과를 출력할 공간 마련해뒀다.-->
 <div class="row" id="list_book"></div>
-<!-- 카카오 도서검색 결과를 출력할 공간 마련해둔뒀다. -->
+<!-- 카카오 도서검색 결과를 출력할 공간 마련해뒀다. -->
 
 <!-- 도서 목록 템플릿  
 for문을 안쓰는 대신에 scirpt 태그를 묶어주고 내가 정한 타입을 적어서 내가 알아볼수 있게 해줘
@@ -36,7 +36,7 @@ for문을 안쓰는 대신에 scirpt 태그를 묶어주고 내가 정한 타입
     <div class="card-footer" style="font-size: 0.9rem;">
       <div class="text-center">
         {{format price}}
-        <span style="cursor: pointer;color:green">CART</span>
+        <span class="cart ms-3" book="{{book @this}}" style="cursor: pointer;color:green">CART</span>
       </div>
     </div>
   </div>
@@ -55,8 +55,8 @@ for문을 안쓰는 대신에 scirpt 태그를 묶어주고 내가 정한 타입
 <script>
   // Handlebars로 이미지 출력시 이미지가 없으면 더미 이미지로 변환하기
   Handlebars.registerHelper("image", function (thum) {
-    if (thum) return thum;
-    else return "https://placehold.co/120x174";
+    if (thum) return thum
+    else return "https://placehold.co/120x174"
   })
 
   //가격 포맷형식 적용하기
@@ -64,10 +64,41 @@ for문을 안쓰는 대신에 scirpt 태그를 묶어주고 내가 정한 타입
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원';
   })
 
+  // Cart구현 추가
+  Handlebars.registerHelper("book", function (book) {
+    return JSON.stringify(book)
+  })
+</script>
+
+<script type="module">
+  import { app } from "/javascripts/firebase_11_25.js"
+  import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+  const db = getDatabase(app);
+  console.log(db)
+
+  const uid = localStorage.getItem("uid")
+  console.log(`bookList uid ===> ${uid}`)
+
   // 사용자가 입력한 키워드 가져오기
   // 폼태그 안에 사용자가 입력한 키워드를 변수에 담기
   let query = $(frm.query).val()
   let page = 1
+
+  // 장바구니 담기
+  $("#list_book").on("click", ".card .cart", async function () {
+    console.log("cart click")
+    if (uid) {
+      const book = JSON.parse($(this).attr("book"))
+      await set(ref(db, `cart/${uid}/${book.isbn}`), book)
+      alert("장바구니에 등록 되었습니다.")
+      // console.log(book)
+    }
+    else {
+      // uid가 undefinde, null, 0, NaN
+      location.href = "/login"
+    }
+  })
 
   // 각 도서의 이미지를 클릭한 경우
   $("#list_book").on('click', '.card img', function () {
@@ -99,11 +130,10 @@ for문을 안쓰는 대신에 scirpt 태그를 묶어주고 내가 정한 타입
       url: "https://dapi.kakao.com/v3/search/book?target=title",
       headers: { Authorization: "KakaoAK 6b10a8106270f172344447e5cec8953b" },
       data: { query: query, page: page, size: 6 }, /* 파라미터로 넘어가는 값 - 노출된다. 그래서 보안이 취약하다. */
-      dataType: "json", // 응답으로 받는 타입은 JSON이다. - 왜냐하면 카카오 서버가 나에게 soctt계정과 tiger비밀번호를 알려줄수 없기때문이다.(서버 계정을 알려줄수 없어서)
+      dataType: "json", // 응답으로 받는 타입은 JSON 이다. - 왜냐하면 카카오 서버가 나에게 soctt계정과 tiger비밀번호를 알려줄수 없기때문이다.(서버 계정을 알려줄수 없어서)
       success: function (data) { // 성공했다. if(ajax.readyState == 4)
         // 응답으로 받은 정보를 data가 쥐고 있다. data는 json형식이다.
         console.log(data)
-
         // 응답으로 받은 데이터를 미리 선언해둔 템플릿(화면)에 매핑해준다.(머지)
         let temp = Handlebars.compile($("#temp-book").html())
 
@@ -111,7 +141,7 @@ for문을 안쓰는 대신에 scirpt 태그를 묶어주고 내가 정한 타입
         $("#list_book").html(temp(data))
 
         // 페이지 네비게이션 추가
-        //마지막 페이지 체크
+        // 마지막 페이지 여부 체크
         let is_end = data.meta.is_end
 
         //검색 가능한 데이터 수

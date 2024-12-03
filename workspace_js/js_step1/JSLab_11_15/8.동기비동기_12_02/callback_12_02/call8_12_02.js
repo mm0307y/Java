@@ -1,11 +1,11 @@
 const a = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      console.log(1)
-      resolve()
-    }, 1000)
-  })
-}
+      console.log(1);
+      resolve();
+    }, 1000);
+  });
+};
 
 // b함수도 일정한 시간이 지나서야 특정한 코드를 실행할 수 있는
 // 비동기 코드로 만들어졌다.
@@ -13,10 +13,10 @@ const a = () => {
 const b = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      console.log(2)
-      resolve()
-    }, 1000)
-  })
+      console.log(2);
+      resolve();
+    }, 1000);
+  });
 };
 
 const c = () => {
@@ -24,18 +24,18 @@ const c = () => {
     setTimeout(() => {
       console.log(3);
       resolve();
-    }, 1000)
-  })
-}
+    }, 1000);
+  });
+};
 
 const d = () => {
   return new Promise((resolve) => {
-  setTimeout(() => {
-    console.log(4);
-    resolve();
-  }, 1000);
-})
-}
+    setTimeout(() => {
+      console.log(4);
+      resolve();
+    }, 1000);
+  });
+};
 
 /* 
 아직도 여전히 들여쓰기와 반복되는 패턴이 존재하고 있다. - promise asyn/await
@@ -47,11 +47,10 @@ const d = () => {
 call7.js에서 확인해 본다.
 */
 
-
 a()
-.then(b)
-.then(c)
-.then(d)
-.then(() => console.log("뭐 시발아"))
+  .then(b)
+  .then(c)
+  .then(d)
+  .then(() => console.log("뭐 시발아"));
 // 문제 : 2가 먼저 출력되고 1이 출력되도록 변경하시오.
 // setTimeout 함수가 1초 후에 1을 출력하도록 한다.

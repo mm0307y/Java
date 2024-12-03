@@ -8,12 +8,13 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebas
 // https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAF_QeapaYa0SO4Q4RLivzjodBExQ8HsZQ",
-    authDomain: "slalom2024-d0918.firebaseapp.com",
-    projectId: "slalom2024-d0918",
-    storageBucket: "slalom2024-d0918.firebasestorage.app",
-    messagingSenderId: "1014655866177",
-    appId: "1:1014655866177:web:a99f6ce99ce1f4c6943dc0"
+  apiKey: "AIzaSyAF_QeapaYa0SO4Q4RLivzjodBExQ8HsZQ",
+  authDomain: "slalom2024-d0918.firebaseapp.com",
+  databaseURL: "https://slalom2024-d0918-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "slalom2024-d0918",
+  storageBucket: "slalom2024-d0918.firebasestorage.app",
+  messagingSenderId: "1014655866177",
+  appId: "1:1014655866177:web:a99f6ce99ce1f4c6943dc0",
 };
 // 이 파일에서 생성된 객체를 외부에서 사용하려면 변수 선언 앞에 export를 붙인다.
 // initializeApp 호출할 때 파라미터로 firebaseConfig객체가 제공하는 값들을 넘긴다.
