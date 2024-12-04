@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
 import WorkoutList1204 from "./components1204/WorkoutList1204";
+import "./app1204.css";
 
 const WorkoutApp = () => {
   const [items, setitems] = useState([
@@ -16,6 +17,7 @@ const WorkoutApp = () => {
     items[index].count += 1
     setitems([...items])
   }
+    
   return (
     <Fragment>
       <ul>

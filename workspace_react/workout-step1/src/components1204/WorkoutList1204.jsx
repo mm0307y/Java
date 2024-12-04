@@ -1,5 +1,5 @@
 import React from 'react'
-import WorkoutItem1203 from './WorkoutItem1203'
+import WorkoutItem1203 from './WorkoutItem1204'
 
 // <WorkoutList item={items} />
 const WorkoutList1204 = (props) => {
