@@ -1,7 +1,7 @@
 const items = [
     { id: 1, name: "런지", count: 1 }
     , { id: 2, name: "스쿼트", count: 0 }
-    , { id: 3, name: "대드리프트", count: 2 }
+    , { id: 3, name: "데드리프트", count: 2 }
 ]
 
 console.log(items.length)

@@ -3,7 +3,7 @@ import WorkoutList1204 from "./components1204/WorkoutList1204";
 import "./app1204.css";
 
 const WorkoutApp = () => {
-  const [items, setitems] = useState([
+  const [items, setItems] = useState([
     { id: 1, name: "밴치프레스", count: 0 },
     { id: 2, name: "랫풀다운", count: 0 },
     { id: 3, name: "스쿼트", count: 0 }
@@ -15,18 +15,38 @@ const WorkoutApp = () => {
     const index = items.indexOf(item)
     console.log(`index ${index}`)
     items[index].count += 1
-    setitems([...items])
+    setItems([...items])
   }
-    
+
+  const handleDecrement = (item) => {
+    const index = items.indexOf(item)
+    if (items[index].count > 0) {
+      items[index].count -= 1
+      setItems([...items])
+    }
+  };
+
+  const handleDelete = (item) => {
+    const index = items.indexOf(item)
+    if (index > -1) {
+      items.splice(index, 1)
+      setItems([...items])
+    }
+  };
+
   return (
     <Fragment>
       <ul>
-        <WorkoutList1204 handleIncrement={handleIncrement} items={items} />
+        <WorkoutList1204 
+        handleIncrement={handleIncrement} 
+        handleDecrement={handleDecrement} 
+        handleDelete={handleDelete}
+        items={items} 
+        />
       </ul>
     </Fragment>
   );
 }
-
 export default WorkoutApp;
 
 /* 
