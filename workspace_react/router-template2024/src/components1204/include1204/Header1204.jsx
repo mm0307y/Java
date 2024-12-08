@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const Header1204 = () => {
   // 아래 부분이 화면 처리부분
   return (
-    <div>
+    <>
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
@@ -16,7 +16,7 @@ const Header1204 = () => {
           </Nav>
         </Container>
       </Navbar>
-    </div>
+    </>
   )
 }
 

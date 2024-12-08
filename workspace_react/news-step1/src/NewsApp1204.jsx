@@ -21,7 +21,7 @@ const NewsApp1204 = () => {
     })
   }, []); // 의존성 배열을 추가한다. - 만일 빈 배열이면 단 한번만 useEffect가 실행된다.
   console.log(3)
-  console.log(newsList.length)
+  console.log(newsList.length) // 30
 
   return (
     <>
