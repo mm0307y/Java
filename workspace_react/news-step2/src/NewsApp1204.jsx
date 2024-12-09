@@ -10,7 +10,7 @@ const NewsApp1204 = ({ authLogic1206 }) => {
     <>
       <Routes>
         <Route path="/" exact={true} element={<LoginPage1206 authLogic1206={authLogic1206} />} />
-        <Route path="/news/:userId" exact={true} element={<NewsPage1206 authLogic1206={authLogic1206} />} />
+        <Route path="/news/:userId" element={<NewsPage1206 authLogic1206={authLogic1206} />} />
         <Route path="/youtube" exact={true} element={<YoutubePage1206 />} />
         <Route path="/notice" exact={true} element={<NoticePage1206 />} />
       </Routes>

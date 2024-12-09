@@ -6,7 +6,7 @@ const LoginPage1206 = ({ authLogic1206 }) => {
   const moveNews = (userId) => {
     console.log("moveNews호출")
     // 뉴스페이지로 이동하기
-    navigate({ pathname: '/news' + userId })
+    navigate({ pathname: '/news/' + userId })
   }
 
   // 이벤트 핸들러(onClick-대소문자를 구분해야 한다.)를 호출 할 때 파라미터에 event객체 자동 주입해준다.

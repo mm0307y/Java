@@ -5,7 +5,7 @@ import {
   GithubAuthProvider,
 } from "firebase/auth";
 
-class authLogic1206 {
+class AuthLogic1206 {
   constructor() {
     this.firebaseAuth = getAuth();
     this.googleProvider = new GoogleAuthProvider();
@@ -45,4 +45,4 @@ class authLogic1206 {
     }
   }
 }
-export default authLogic1206;
+export default AuthLogic1206;
