@@ -4,24 +4,19 @@ import React from 'react'
 // 주소번지 원본을 넘겨받을 수 있다.
 const NewsList1204 = (props) => {
   // 구조분해 할당
-  const { newsList } = props;
+  const { newsList } = props
   console.log(newsList)
 
   return (
-    <>
+    <div>
       <ul>
         {
           Object.keys(newsList).map((key =>
-            <li key={key}>[id:{newsList[key].id}]
-              / user: {newsList[key].user}
-              / comments_count: {newsList[key].comments_count}
-              / time_age: {newsList[key].time_ago}
-              / url: <a href={newsList[key].user}>{newsList[key].url}</a>
-            </li>
+            <li key={key}>[id:{newsList[key].id}]</li>
           ))
         }
       </ul>
-    </>
+    </div>
   )
 }
 
