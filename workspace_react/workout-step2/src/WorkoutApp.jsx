@@ -1,12 +1,11 @@
 import { Fragment, useState } from "react";
 import WorkoutList1204 from "./components1204/WorkoutList1204";
 import "./app1204.css";
+import Navbar1211 from "./components1204/Navbar1211";
 
 const WorkoutApp = () => {
   const [items, setItems] = useState([
-    { id: 1, name: "밴치프레스", count: 0 },
-    { id: 2, name: "랫풀다운", count: 0 },
-    { id: 3, name: "스쿼트", count: 0 }
+
   ])
   // console.log(items)
   const handleIncrement = (item) => {
@@ -20,30 +19,41 @@ const WorkoutApp = () => {
 
   const handleDecrement = (item) => {
     const index = items.indexOf(item)
-    if (items[index].count > 0) {
-      items[index].count -= 1
-      setItems([...items])
-    }
+    const count = items[index].count - 1
+    items[index].count = count < 0 ? 0 : count
+    setItems([...items])
+    // if (items[index].count > 0) {
+    //   items[index].count -= 1
+    //   setItems([...items])
+    // }
   };
 
   const handleDelete = (item) => {
-    const index = items.indexOf(item)
-    if (index > -1) {
-      items.splice(index, 1)
-      setItems([...items])
-    }
-  };
+    // 필터링한 결과를 변수에 담았다가 state훅에 반영한다.
+    const workouts = items.filter(row => row.id !== item.id)
+    setItems([...workouts])
+    // const index = items.indexOf(item)
+    // if (index > -1) {
+    //   items.splice(index, 1)
+    //   setItems([...items])
+    // }
+  }
+
+  const handleAdd = (name) => {
+    const workouts = [...items, { id: Date.now(), name, count: 0 }]
+    setItems([...workouts])
+  }
 
   return (
     <Fragment>
-      <ul>
-        <WorkoutList1204 
-        handleIncrement={handleIncrement} 
-        handleDecrement={handleDecrement} 
+      <Navbar1211 totalCount={items.filter(item => item.count > 0).length} />
+      <WorkoutList1204
+        handleIncrement={handleIncrement}
+        handleDecrement={handleDecrement}
         handleDelete={handleDelete}
-        items={items} 
-        />
-      </ul>
+        items={items}
+        handleAdd={handleAdd}
+      />
     </Fragment>
   );
 }

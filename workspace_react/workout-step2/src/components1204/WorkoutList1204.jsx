@@ -1,5 +1,6 @@
 import React from 'react'
 import WorkoutItem1204 from './WorkoutItem1204'
+import AddForm1211 from './AddForm1211'
 
 // <WorkoutList item={items} />
 const WorkoutList1204 = (props) => {
@@ -27,16 +28,20 @@ const WorkoutList1204 = (props) => {
     props.handleDelete(item)
   }
 
+  const handleAdd = (name) => {
+    props.handleAdd(name)
+  }
+
   return (
     <>
+      <AddForm1211 handleAdd={handleAdd} />
       <ul>
         {/* jsx에서는 태그안에 주소번지를 넘길 수 있다. */}
         {items.map(item => (
-          <WorkoutItem1204
-            key={item.id} item={item}
-            handleIncrement={handleIncrement}
-            handleDecrement={handleDecrement}
-            handleDelete={handeleDelete} />
+          <WorkoutItem1204 handleIncrement={handleIncrement}
+            handleDelete={handeleDelete}
+            key={item.id} item={item} handleDecrement={handleDecrement}
+          />
         ))}
       </ul>
     </>
