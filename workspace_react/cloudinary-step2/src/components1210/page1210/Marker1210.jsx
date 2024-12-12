@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import CardEditor1210 from './CardEditor1210'
 import Preview1210 from './Preview1210'
 import styled from 'styled-components'
+import Header1211 from '../include1211/Header1211'
+import Footer1211 from '../include1211/Footer1211'
+import { useNavigate } from 'react-router'
+import { logout } from '../../service1212/authLogic1212'
 
 const MarkerDiv = styled.div`
   width: 100%;
@@ -9,6 +13,7 @@ const MarkerDiv = styled.div`
   display: flex;
   flex-direction: column;
   background-color: skyblue;
+  border-radius: 30px;
 `
 
 const ContainerDiv = styled.div`
@@ -17,7 +22,8 @@ const ContainerDiv = styled.div`
   min-height: 0;
 `
 
-const Marker1210 = () => {
+const Marker1210 = ({ authLogic, FileInput }) => {
+  const navigate = useNavigate()
   // 일반 변수와 다른 점은 상태값이 변하면 화면이 재 렌더링이 된다.
   const [cards, setCards] = useState({
     '1': {
@@ -47,12 +53,19 @@ const Marker1210 = () => {
     },
   })
 
+  const onLogout = async () => {
+    await logout(authLogic.auth)
+    navigate('/')
+  }
+
   return (
     <MarkerDiv>
+      <Header1211 onLogout={onLogout} />
       <ContainerDiv>
-        <CardEditor1210 />
+        <CardEditor1210 FileInput={FileInput} cards={cards} />
         <Preview1210 cards={cards} />
       </ContainerDiv>
+      <Footer1211 />
     </MarkerDiv>
   )
 }

@@ -4,7 +4,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: transparent;
+  background-color: #a9d8ff;
+  border-radius: 30px;
 }
 
 ul {
@@ -28,7 +29,8 @@ li {
   cursor: pointer;
   outline: 0;
   border: 0.2em solid lightgray;
+  color: #b6b5b2;
   &:hover {
-    background-color: #a9d8ff;
+    background-color: #51a0e0;
   }
 }

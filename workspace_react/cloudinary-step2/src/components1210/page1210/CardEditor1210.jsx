@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
+import CardAddForm1212 from './CardAddForm1212'
+import CardEditorForm1212 from './CardEditorForm1212'
 
-const CardEditorDiv = styled.div`
+const EditorDiv = styled.div`
   flex-basis: 50%;
   border-right: 1px solid #9E7676;
   color: white;
@@ -24,13 +26,16 @@ const TextDiv = styled.div`
   justify-content: center; /* 세로 중앙 정렬 */
 `
 
-function CardEditor1210() {
+const CardEditor1210 = ({ FileInput, cards }) => {
   return (
-    <CardEditorDiv>
+    <EditorDiv>
       <TitleH1>Card Editor</TitleH1>
+      {Object.keys(cards).map(key => (
+        <CardEditorForm1212 key={key} card={cards[key]} FileInput={FileInput} />
+      ))}
       <TextDiv>나나나나나ㅏ나나나나나나나나나나나</TextDiv>
-    </CardEditorDiv>
+      <CardAddForm1212 FileInput={FileInput} />
+    </EditorDiv>
   )
 }
-
 export default CardEditor1210
