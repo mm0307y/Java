@@ -8,7 +8,7 @@ const YoutubeApp1213 = () => {
   const [videos, setVideos] = useState([])
   const [params, setParams] = useState({
     part: 'snippet',
-    chart: 'mostPopular',
+    q: '손흥민',
     maxResults: 25,
     key: "AIzaSyB3s74a5_0cgFU2HvL8O-eBsGLugxx9w94"
   })
@@ -16,7 +16,7 @@ const YoutubeApp1213 = () => {
   useEffect(() => {
     console.log('effect')
     axios.get('', { params })
-    axios.get('https://www.googleapis.com/youtube/v3/videos?', { params })
+    axios.get('https://www.googleapis.com/youtube/v3/search?', { params })
       .then(result => {
         setVideos(result.data.items)
       }).catch(error => console.log(error))
