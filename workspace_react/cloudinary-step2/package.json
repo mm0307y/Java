@@ -1,5 +1,5 @@
 {
-  "name": "template2024",
+  "name": "name-card-step2",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,8 +7,10 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.8",
-    "bootstrap": "^5.3.3",
+    "dotenv": "^16.4.7",
     "firebase": "^11.0.2",
+    "http-proxy-middleware": "^3.0.3",
+    "nodemon": "^3.1.9",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.6",
     "react-dom": "^18.3.1",
@@ -20,6 +22,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "server": "nodemon ./server1216.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

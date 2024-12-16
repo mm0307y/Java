@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
-import styles from './ImageFileInput.module1212.css';
+import styles from './ImageFileInput.module.css';
 const ContainerDiv = styled.div`
   width: 100%;
   height: 100%;
@@ -13,14 +13,17 @@ const HiddenInput = styled.input`
 `
 
 const ImageFileInput1212 = ({ imageUploader, name, onFileChange }) => {
+  console.log(name)
   const [loading, setLoading] = useState(false);
   const inputRef = useRef();
   const onButtonClick = (event) => {
     event.preventDefault();
+    // No file이 클릭되었을 때 버튼 클릭하기
     inputRef.current.click();
   }
   const onChange = async event => {
     setLoading(true);
+    console.log(event.target.files[0]);
     const uploaded = await imageUploader.upload(event.target.files[0]);
     console.log(uploaded);
     setLoading(false);
@@ -29,6 +32,7 @@ const ImageFileInput1212 = ({ imageUploader, name, onFileChange }) => {
       url: uploaded.url,
     });
   };
+
   return (
     <ContainerDiv>
       <HiddenInput
@@ -36,6 +40,7 @@ const ImageFileInput1212 = ({ imageUploader, name, onFileChange }) => {
         type="file" accept="image/*" name="file"
         onChange={onChange}
       />
+      {/* 로딩중이 아니면 아래 코드가 처리 */}
       {!loading && (
         <button className={`${styles.button} ${name ? styles.pink : styles.grey}`} onClick={onButtonClick}>
           {name || 'No file'}

@@ -1,0 +1,30 @@
+import { Route, Routes } from "react-router";
+import "bootstrap/dist/css/bootstrap.min.css";
+import HomePage1216 from "./components1216/pages1216/HomePage1216";
+import LoginPage1216 from "./components1216/auth1216/LoginPage1216";
+import NoticePager1216 from "./components1216/pages1216/NoticePager1216";
+import NoticeDetail1216 from "./components1216/notice1216/NoticeDetail1216";
+
+const App = () => {
+  return (
+    <>
+      <Routes>
+        <Route path="/" exact={true} element={<HomePage1216 />} />
+        <Route path="/login" exact={true} element={<LoginPage1216 />} />
+        <Route path="/notice/list" exact={true} element={<NoticePager1216 />} />
+        <Route path="/detail/:n_no" exact={true} element={<NoticeDetail1216 />} />
+      </Routes>
+    </>
+  );
+}
+
+export default App;
+
+/* 
+- http://localhost:3000 뒤에 index.html 가 생략 되어 있다. http://localhost:3000/index.html 
+- <div id ="root"></div>
+- root에 대한 정보는 index.js에서 참조한다. - document.querySelector("#root")
+- index.js에서 App을 import한다.
+- 이 때 App.jsx의 erturn에 있는 태그가 화면에 출력된다.
+- 그런데 이번에는 App.jsx에 메뉴를 클릭했을 때 보여줄 페이지에 대한 링크를 걸어 준다.
+*/

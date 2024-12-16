@@ -11,18 +11,16 @@ const TitleH1 = styled.h1`
   width: 100%;
   text-align: center;
   margin-bottom: 1em;
-  color: #594545;
+  color: #815b5b;
 `
 
 const CardsUl = styled.ul`
   width: 100%;
-  height: 100%;
-  padding: 0.5em 2em;
-  color: #815b5b;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  list-style: none;
+    height: 100%;
+    padding: 0.5em 2em;
+    display: flex;
+    flex-direction: column;/* 카드가 너무 왼쪽에 있어서 조정하기 */
+    align-items: center;/* 카드가 너무 작아졌다면 card.module.css로 가서 .card에 width: 100%로 준다  */
 `
 
 const Preview1210 = ({ cards }) => {

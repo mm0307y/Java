@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Button = styled.button`
+const MyButton = styled.button`
   background-color: #DBA39A;
   color: white;
   font-weight: bold;
@@ -17,9 +17,9 @@ const Button = styled.button`
 `
 
 
-const MyButton1212 = ({name, onClick}) => {
+const MyButton1212 = ({ name, onClick }) => {
   return (
-    <Button>{name}</Button>
+    <MyButton onClick={onClick}>{name}</MyButton>
   )
 }
 

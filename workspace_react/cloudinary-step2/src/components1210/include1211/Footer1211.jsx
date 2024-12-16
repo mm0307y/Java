@@ -1,11 +1,21 @@
 import React from 'react'
-import './footer1211.css'
+import styled from 'styled-components'
+
+const FooterDiv = styled.div`
+    width: 100%;
+    background-color: #DBA39A;
+    text-align: center;    
+    border-radius: 0 0 30px 30px;
+`
+const TitleP = styled.p`
+    color: white;
+`
 
 const Footer1211 = () => {
   return (
-    <div className='footer'>
-      <p className='pmsg'>No Pain, No Gain</p>
-    </div>
+    <FooterDiv>
+      <TitleP>No pain, No gain</TitleP>
+    </FooterDiv>
   )
 }
 
