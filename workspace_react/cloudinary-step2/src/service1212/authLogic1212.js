@@ -1,8 +1,8 @@
 import {
   getAuth,
   GithubAuthProvider, //깃헙으로 로그인할때
-  GoogleAuthProvider /* 구글에서 제공하는 제공자 정보 */,
-  signInWithPopup /* 구글 로그인 이중 화면 띄움 */,
+  GoogleAuthProvider, // 구글에서 제공하는 제공자 정보
+  signInWithPopup, // 구글 로그인 이중 화면 띄움
 } from "firebase/auth";
 
 class AuthLogic {

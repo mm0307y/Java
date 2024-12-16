@@ -5,10 +5,31 @@ import NoticeList1216 from '../notice1216/NoticeList1216'
 
 // 공지사항 게시판
 const NoticePager1216 = () => {
+
+  const [notices, setNotices] = React.useState([
+    { n_no: 1, n_title: "공지제목1", n_writer: '관리자', n_content: '제공1 내용' },
+    { n_no: 2, n_title: "공지제목2", n_writer: '총무부', n_content: '제공2 내용' },
+    { n_no: 3, n_title: "공지제목3", n_writer: '영업부', n_content: '제공3 내용' }
+  ])
+
+  const [notices2, setNotices2] = React.useState({
+    '1':
+      { n_no: 1, n_title: "공지제목1", n_writer: '관리자', n_content: '제공1 내용' },
+
+    '2':
+      { n_no: 2, n_title: "공지제목2", n_writer: '총무부', n_content: '제공2 내용' },
+
+    '3':
+      { n_no: 3, n_title: "공지제목3", n_writer: '영업부', n_content: '제공3 내용' },
+  })
+
+  const [notices3, setNotices3] = React.useState([])
+
+
   return (
     <>
       <Header1216 />
-      <NoticeList1216 />
+      <NoticeList1216 notices={notices} notices2={notices2} notices3={notices3} />
       <Footer1216 />
     </>
   )

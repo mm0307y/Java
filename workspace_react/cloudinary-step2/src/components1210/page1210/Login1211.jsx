@@ -57,6 +57,7 @@ const Login1211 = ({ authLogic }) => {
   }
 
   const onLogin = async () => {
+    // console.log(`${authLogic.auth}, ${authLogic.googleProvider}`);
     // authLogic에 있는 로그인 함수를 호출한다.
     try {
       const user = await loginGoogle(authLogic.auth, authLogic.googleProvider);
