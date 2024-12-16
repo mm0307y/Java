@@ -62,13 +62,13 @@ const FileInputDiv = styled.div`
 
 const CardAddForm1212 = ({ FileInput, onAdd }) => {
   //값들을 읽어와서 Card에 추가하기
-  const formRef = useRef();//폼전체 Ref
-  const nameRef = useRef();//이름
-  const companyRef = useRef();//회사명
-  const themeRef = useRef();//테마구분값
-  const titleRef = useRef();//엔지니어
-  const emailRef = useRef();//이메일
-  const messageRef = useRef();//
+  const formRef = useRef(); // 폼전체 Ref
+  const nameRef = useRef(); // 이름
+  const companyRef = useRef(); // 회사명
+  const themeRef = useRef(); // 테마구분값
+  const titleRef = useRef(); // 엔지니어
+  const emailRef = useRef(); // 이메일
+  const messageRef = useRef(); //
   const [file, setFile] = useState({ fileName: null, fileURL: null });
   const onFileChange = (file) => {
     console.log(file);

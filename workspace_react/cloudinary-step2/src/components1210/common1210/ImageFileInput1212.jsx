@@ -13,7 +13,7 @@ const HiddenInput = styled.input`
 `
 
 const ImageFileInput1212 = ({ imageUploader, name, onFileChange }) => {
-  console.log(name)
+  console.log(name);
   const [loading, setLoading] = useState(false);
   const inputRef = useRef();
   const onButtonClick = (event) => {
@@ -46,6 +46,7 @@ const ImageFileInput1212 = ({ imageUploader, name, onFileChange }) => {
           {name || 'No file'}
         </button>
       )}
+      {/* 로딩 중이면 아래 코드 처리 */}
       {loading && <div className={styles.loading}></div>}
     </ContainerDiv>
   )

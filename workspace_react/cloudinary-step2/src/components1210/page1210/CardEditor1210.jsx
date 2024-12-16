@@ -23,7 +23,7 @@ const CardEditor1210 = ({ FileInput, cards, addCard, updateCard, deleteCard }) =
     <EditorDiv>
       <TitleH1>Card Editor</TitleH1>
       {Object.keys(cards).map(key => (
-        <CardEditorForm1212 FileInput={FileInput} key={key} card={cards[key]} updateCard={updateCard} deleteCard={deleteCard}/>
+        <CardEditorForm1212 FileInput={FileInput} key={key} card={cards[key]} updateCard={updateCard} deleteCard={deleteCard} />
       ))}
       <CardAddForm1212 FileInput={FileInput} onAdd={addCard} />
     </EditorDiv>

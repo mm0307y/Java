@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Header1211 from "../include1211/Header1211";
 import Footer1211 from "../include1211/Footer1211";
 import { logout, onAuthChange } from "../../service1212/authLogic1212";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import CardEditor1210 from "./CardEditor1210";
 import Preview1210 from "./Preview1210";
 
@@ -22,7 +22,7 @@ const ContainerDiv = styled.div`
   min-height: 0;
 `;
 
-const Marker1210 = ({ authLogic, FileInput, cardLogic }) => {
+const Marker1210 = ({ FileInput, authLogic, cardLogic }) => {
   // 일반 변수와 다른 점은 상태값이 변하면 화면이 재 렌더링이 된다.
   const [cards, setCards] = useState({});
   const navigate = useNavigate();

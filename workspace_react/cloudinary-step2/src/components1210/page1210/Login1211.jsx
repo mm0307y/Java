@@ -48,7 +48,6 @@ const Login1211 = ({ authLogic }) => {
   const navigate = useNavigate();
   const [userId, setUserId] = useState();
   // 로그인 성공시 구글이 나에게 콜백함수 resolve를 통해서 user 정보를 쥐어준다. user.uid
-
   const goToMaker = userId => {
     navigate({
       pathname: '/marker',

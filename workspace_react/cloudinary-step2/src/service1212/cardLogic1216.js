@@ -23,7 +23,7 @@ class CardLogic {
   }
   //데이터 삭제 - 해당 데이터 위치의 참조에 remove()를 호출한다
   removeCard(userId, card) {
-    remove(ref(this.db, `${userId}/cards/${card.id}`)); //new Date().now() 오늘날짜시간 10진수값이 담김
+    remove(ref(this.db, `${userId}/cards/${card.id}`));
   }
 }
 
