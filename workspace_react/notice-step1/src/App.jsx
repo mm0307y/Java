@@ -6,6 +6,8 @@ import NoticePager1216 from "./components1216/pages1216/NoticePager1216";
 import NoticeDetail1216 from "./components1216/notice1216/NoticeDetail1216";
 
 const App = () => {
+  // Route의 path와 Header의 Link to는 일치해야 한다.
+  // 사용자 정의 컴포넌트는 함수이다.
   return (
     <>
       <Routes>
