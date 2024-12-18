@@ -13,6 +13,7 @@ const Header1216 = () => {
             <Link to="/" className="nav-link">Home</Link>
             <Link to="/login" className="nav-link">로그인</Link>
             <Link to="/notice" className="nav-link">공지사항</Link>
+            <Link to="/noticeT" className="nav-link">공지데모</Link>
           </Nav>
         </Container>
       </Navbar>

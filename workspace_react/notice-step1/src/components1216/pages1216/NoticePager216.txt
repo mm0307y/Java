@@ -4,7 +4,7 @@ import Footer1216 from '../include1216/Footer1216'
 import NoticeList1216 from '../notice1216/NoticeList1216'
 
 // 공지사항 게시판
-const NoticePager1216 = () => {
+const NoticePage1216 = () => {
 
   const [notices, setNotices] = React.useState([
     { n_no: 1, n_title: "공지제목1", n_writer: '관리자', n_content: '제공1 내용' },
@@ -35,4 +35,4 @@ const NoticePager1216 = () => {
   )
 }
 
-export default NoticePager1216
+export default NoticePage1216

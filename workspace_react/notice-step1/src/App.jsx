@@ -2,8 +2,10 @@ import { Route, Routes } from "react-router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import HomePage1216 from "./components1216/pages1216/HomePage1216";
 import LoginPage1216 from "./components1216/auth1216/LoginPage1216";
-import NoticePager1216 from "./components1216/pages1216/NoticePager1216";
 import NoticeDetail1216 from "./components1216/notice1216/NoticeDetail1216";
+import NoticeList1216 from "./components1216/notice1216/NoticeList1216";
+import NoticeTestList1218 from "./components1216/noticeTest1218/NoticeTestList1218";
+import NoticeTestDetail1218 from "./components1216/noticeTest1218/NoticeTestDetail1218";
 
 const App = () => {
   // Route의 path와 Header의 Link to는 일치해야 한다.
@@ -13,8 +15,10 @@ const App = () => {
       <Routes>
         <Route path="/" exact={true} element={<HomePage1216 />} />
         <Route path="/login" exact={true} element={<LoginPage1216 />} />
-        <Route path="/notice" exact={true} element={<NoticePager1216 />} />
+        <Route path="/notice" exact={true} element={<NoticeList1216 />} />
         <Route path="/notice/:n_no" exact={true} element={<NoticeDetail1216 />} />
+        <Route path="/noticeT" exact={true} element={<NoticeTestList1218 />} />
+        <Route path="/noticeTD" exact={true} element={<NoticeTestDetail1218 />} />
       </Routes>
     </>
   );

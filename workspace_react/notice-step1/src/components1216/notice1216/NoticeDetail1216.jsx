@@ -39,16 +39,16 @@ const NoticeDetail1216 = () => {
   const handleShow = () => setShow(true)
   const handleClose = () => setShow(false)
 
-  const noticeDelete = async() => {
+  const noticeDelete = async () => {
     await remove(ref(database, `notice/${n_no}`))
-    navigate('/notice')
+    window.location.href = '/notice'
   }
 
   const noticeList = () => {
     navigate('/notice')
   }
 
-  const noticeUpdate = async(event) => {
+  const noticeUpdate = async (event) => {
     event.preventDefault()
     console.log("수정할 정보 : " + n_no + ", " + notice.n_title + ", " + notice.n_content + ", " + notice.n_writer)
     await set(ref(database, 'notice/' + n_no), notice)
