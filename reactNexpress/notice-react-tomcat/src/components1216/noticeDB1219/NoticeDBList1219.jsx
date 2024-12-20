@@ -13,13 +13,21 @@ const NoticeDBList1219 = () => {
     }
     const asynDB = async () => {
       const res = await noticeListDB(notice)
-      console.log(res)
+      console.log(res.data)
       setNotices(res)
     }
     asynDB();
   }, [])
   return (
-    <div>NoticeDBList</div>
+    <>
+      <div>
+        <ul>
+          {notices.map((notice, index) => (
+            <li key={index}>{`${notice.n_title}, ${notice.n_writer}, ${notice.n_content}`}</li>
+          ))}
+        </ul>
+      </div>
+    </>
   )
 }
 

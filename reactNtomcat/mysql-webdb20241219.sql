@@ -2,8 +2,14 @@ CREATE database webdb character set utf8 default collate utf8mb3_general_ci;
 
 use webdb; #(데이터베이스 이름)
 
+# int타입은 최대 10자리까지만 담을 수 있다.
+# n_no: Date.now() -> 13자리 값 -> bigint로 사용할 것
+
+# 테이블을 삭제할 때 DDL()
+drop table notice;
+
 create table notice(
-    n_no int auto_increment primary key,
+    n_no bigint auto_increment primary key,
     n_title varchar(50),
     n_writer varchar(30),
     n_content varchar(500)
@@ -22,3 +28,5 @@ commit;
 
 select n_no, n_title, n_writer, n_content
   from notice;
+  
+delete from notice;

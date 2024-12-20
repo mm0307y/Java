@@ -18,4 +18,24 @@ router.get("/notice/list", function (req, res) {
   });
 });
 
+// -> POST - http://localhost:5000/users/notice/insert
+// 공지글 쓰기
+router.post("/notice/insert", function (req, res) {
+  // 사용자가 화면에 입력한 값 담기
+  const { n_no, n_title, n_writer, n_content } = req.body;
+  const sql =
+    "insert into notice(n_title, n_writer, n_content) values(?, ?, ?)";
+  db.get().query(sql, [n_title, n_writer, n_content], function (err, result) {
+    if (err) {
+      // 입력을 실패했을때
+      console.error("Database error : ", err);
+      return res.sendStatus(500);
+    } else {
+      // 입력을 성공했을때
+      console.log("insert result :", result);
+      res.send({ success: true, result })
+    }
+  });
+});
+
 module.exports = router;
