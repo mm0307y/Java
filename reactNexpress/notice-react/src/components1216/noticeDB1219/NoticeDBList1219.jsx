@@ -63,9 +63,13 @@ const NoticeDBList1219 = () => {
   }
 
   const noticeList = () => {
-
     const asyncDB = async () => {
       //select처리
+      const res = await noticeListDB(notice)
+      console.log(res.data)
+
+      // props나 state가 변하면 화면을 새로 그린다.
+      setNotices(res.data)
     } //// end of asyncDB
     asyncDB()
   }
@@ -91,22 +95,19 @@ const NoticeDBList1219 = () => {
     // db에서 가져온 것이 아니다.
     const result = Object.values(notices).filter(notice => {
       if (!notice) return false
-      switch (gubun) {
-        case "n_title":
-          return notice.n_title && notice.n_title.includes(keyword)
-        case "n_writer":
-          return notice.n_writer && notice.n_writer.includes(keyword)
-        case "n_content":
-          return notice.n_content && notice.n_content.includes(keyword)
-        default:
-          return false
-      } //// end of switch
     }) //// end of 조건검색 결과를 담는다.
-    console.log("검색 결과" + JSON.stringify(result))
-    setNotices(result)
-    setGubun('')
-    setKeyword('')
-
+    const asyncDB = async () => {
+      const notice = {
+        gubun: gubun,
+        keyword: keyword
+      }
+      const res = await noticeListDB(notice)
+      console.log(res.data)
+      setNotices(res.data)
+      setGubun('')
+      setKeyword('')
+    }
+    asyncDB()
   }
 
   const handleChangeForm = (event) => {
@@ -185,7 +186,6 @@ const NoticeDBList1219 = () => {
             </tr>
           </thead>
           {/* 데이터셋 연동하기 */}
-          {/* props로 넘어온 상태값이 빈 깡통이면 실행하지 않기 */}
           <tbody>
             {
               notices && Object.keys(notices).map(key => (

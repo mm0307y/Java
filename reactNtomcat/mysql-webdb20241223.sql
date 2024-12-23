@@ -19,7 +19,7 @@ insert into notice(n_title, n_writer, n_content)
 values('제목1', '작성자1', '내용1');
 
 insert into notice(n_title, n_writer, n_content)
-values('제목2', '작성자2', '내용2');
+values('제목12', '작성자12', '내용12');
 
 insert into notice(n_title, n_writer, n_content)
 values('제목3', '작성자3', '내용3');
@@ -30,6 +30,20 @@ select n_no, n_title, n_writer, n_content
   from notice;
 
 select n_no, n_title, n_writer, n_content
-  from notice;
+  from notice
+where n_title like '%52%';
+
+delete from notice 
+where n_no = 2100;
   
 delete from notice;
+
+update notice
+	set n_title = ?
+	   ,n_writer = ?
+	   ,n_content = ?
+where n_no = ?;
+
+rollback;
+
+commit;
