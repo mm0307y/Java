@@ -14,12 +14,11 @@ const NoticeDBList1219 = () => {
     const asynDB = async () => {
       const res = await noticeListDB(notice)
       console.log(res.data)
-      setNotices(res)
+      setNotices(res.data)
     }
     asynDB();
   }, [])
   return (
-    <>
       <div>
         <ul>
           {notices.map((notice, index) => (
@@ -27,7 +26,6 @@ const NoticeDBList1219 = () => {
           ))}
         </ul>
       </div>
-    </>
   )
 }
 

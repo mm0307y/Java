@@ -7,7 +7,7 @@ export const noticeListDB = (params) => {
     try {
       const response = axios({
         method: "get",
-        url: process.env.REACT_APP_TOMCAT_IP + "api/notice/list",
+        url: process.env.REACT_APP_TOMCAT_IP + "api",
         params: params,
       });
       resolve(response); //성공했을 때
