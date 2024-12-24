@@ -8,6 +8,7 @@ import NoticeTestList1218 from "./components1216/noticeTest1218/NoticeTestList12
 import NoticeTestDetail1218 from "./components1216/noticeTest1218/NoticeTestDetail1218";
 import NoticeDBList1219 from "./components1216/noticeDB1219/NoticeDBList1219";
 import NoticeDBDetail1220 from "./components1216/noticeDB1219/NoticeDBDetail1220";
+import QuillWrite1224 from "./components1216/board1224/QuillWrite1224";
 
 const App = () => {
   // Route의 path와 Header의 Link to는 일치해야 한다.
@@ -17,6 +18,7 @@ const App = () => {
       <Routes>
         <Route path="/" exact={true} element={<HomePage1216 />} />
         <Route path="/login" exact={true} element={<LoginPage1216 />} />
+        <Route path="/quill/write" exact={true} element={<QuillWrite1224 />} />
         <Route path="/noticeDB" exact={true} element={<NoticeDBList1219 />} />
         <Route path="/noticeDB/:n_no" exact={true} element={<NoticeDBDetail1220 />} />
         <Route path="/notice" exact={true} element={<NoticeList1216 />} />

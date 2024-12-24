@@ -3,11 +3,12 @@ import { Button, Card, Form, ListGroup, ListGroupItem, Modal } from 'react-boots
 import Footer1216 from '../include1216/Footer1216'
 import Header1216 from '../include1216/Header1216'
 import { useNavigate, useParams } from 'react-router'
-import { onValue, ref, remove, set } from 'firebase/database'
-import { database } from '../../service1216/firebase1217'
+import { noticeDetailDB, noticeDeleteDB, noticeUpdateDB } from '../../service1216/dbLogic1218'
 
 const NoticeDBDetail1220 = () => {
   const navigate = useNavigate()
+  const { n_no } = useParams()
+  // 모달창에서 수정할 정보를 받아서 notice훅에 반영하기 - 동기화처리
   const [notice, setNotice] = useState({
     n_no: 0,
     n_title: '',
@@ -15,54 +16,62 @@ const NoticeDBDetail1220 = () => {
     n_content: ''
   })
 
-  // prpps로 가져오는게 아니다. -> http://localhost:3000/notice/2
-  const { n_no } = useParams()
-  console.log(n_no)
-
-  // NoticeDetail 함수 실행 시 최초로 한 번만 실행되는 값
-  useEffect(() => {
-    const asyncDB = async () => {
-      //select처리
-      const dbRef = ref(database, '/notice/' + n_no)
-      onValue(dbRef, (snapshot) => {
-        const data = snapshot.val()
-        //console.log(data)
-        setNotice(data)
-      })
-    }
-    asyncDB()
-    // DB에서 가져온 값이 있는지 출력해 보기
-    console.log(notice)
-  }, []) // [] 빈 배열을 넣어두면 딱 한 번만 실행된다. 만일 여기에 n 건인 상태 훅을 넣으면 무한 루프에 빠지기 때문에 주의할 것
-
+  // 수정 버튼을 누르면 모달 창 열기 처리
+  // show 값은 부트스트랩에서 모달창을 열고 닫을 때 설정하는 값이다.
   const [show, setShow] = useState(false)
   const handleShow = () => setShow(true)
   const handleClose = () => setShow(false)
 
-  const noticeDelete = async () => {
-    await remove(ref(database, `notice/${n_no}`))
-    window.location.href = '/notice'
-  }
-
-  const noticeList = () => {
-    navigate('/notice')
-  }
-
-  const noticeUpdate = async (event) => {
-    event.preventDefault()
-    console.log("수정할 정보 : " + n_no + ", " + notice.n_title + ", " + notice.n_content + ", " + notice.n_writer)
-    await set(ref(database, 'notice/' + n_no), notice)
-    handleClose()
-  }
-
   const handleChangeForm = (event) => {
-    event.preventDefault()
-    // 사용자가 폼에 입력한 값을 notice useState 훅에 담기
+    event.preventDefault() // 이벤트가 전이되는 것을 방지한다. - 새로고침 발동
+    // 사용자가 폼에 입력한 값을 notice useState  훅에 동기화 하기
+    // <Form.Control type="text" name="n_title" value={notice.n_title} onChange={handleChangeForm} />
+    // <Form.Control type="text" name="n_writer" value={notice.writer} onChange={handleChangeForm} />
+    // <Form.Control type="text" name="n_content" value={notice.n_content} onChange={handleChangeForm} />
     setNotice({
       ...notice,
-      n_no: n_no,
       [event.target.name]: event.target.value
     })
+  } //// end od handleChangForm
+
+  // NoticeDBDetail 호출 되었을 때 최초 한 번만 호출된다. 왜냐면 의존성 배열이 빈통이기 때문이다.
+  // 최초 연린 화면에서 mySQL서버로 부터 select한 결과를 받아와서 
+  // 그 결과가 useState에 반영이 되었을 때 props가 변경될 때 혹은 state가 재조정이 일어난다.
+  useEffect(() => {
+    const asyncDB = async () => {
+      const res = await noticeDetailDB(n_no)
+      setNotice(res.data)
+    }
+    asyncDB()
+  }, [])
+
+  const noticeList = () => {
+    navigate('/noticeDB')
+  }
+
+  const noticeDelete = () => {
+    const asyncDB = async () => {
+      const res = await noticeDeleteDB(n_no)
+      navigate('/noticeDB')
+    }
+    asyncDB()
+  }
+
+  // 사용자가 입력하는 값을 수정처리 하기
+  const noticeUpdate = async (event) => {
+    event.preventDefault()
+    const asyncDB = async () => {
+      const params = {
+        n_no: n_no,
+        n_title: notice.n_title,
+        n_writer: notice.n_writer,
+        n_content: notice.n_content
+      }
+      const res = await noticeUpdateDB(params)
+      console.log(res.data)
+    }
+    asyncDB()
+    handleClose() // 수정하기 도달창 닫기
   }
 
   return (
@@ -96,10 +105,10 @@ const NoticeDBDetail1220 = () => {
       </div>
       <Footer1216 />
 
-      {/* ==================[[ 공지등록 모달 시작 ]] ========================= */}
+      {/* ==================[[ 공지수정 모달 시작 ]] ========================= */}
       <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>글등록</Modal.Title>
+          <Modal.Title>글수정</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form id="f_board">
@@ -126,7 +135,7 @@ const NoticeDBDetail1220 = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      {/* ==================[[ 공지등록 모달 끝 ]] ========================= */}
+      {/* ==================[[ 공지수정 모달 끝 ]] ========================= */}
     </>
   )
 }

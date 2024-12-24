@@ -9,6 +9,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
 var app = express();
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // CORS설정
 app.use(cors());
