@@ -9,6 +9,9 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
 var app = express();
+
+// React에서 quill editor 에서 이미지를 선택하면 해당 이미지를 express서버의
+// uploads 폴더에 업로드 합니다.
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // CORS설정
@@ -44,7 +47,7 @@ app.use(function (err, req, res, next) {
 });
 
 // mysql 서버 설정
-var db = require("./db1219");
+var db = require("./db1226");
 db.connect(function (err) {
   if (err) {
     console.log("Unable to connect to MySQL : ");

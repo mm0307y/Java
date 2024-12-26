@@ -9,6 +9,10 @@ import NoticeTestDetail1218 from "./components1216/noticeTest1218/NoticeTestDeta
 import NoticeDBList1219 from "./components1216/noticeDB1219/NoticeDBList1219";
 import NoticeDBDetail1220 from "./components1216/noticeDB1219/NoticeDBDetail1220";
 import QuillWrite1224 from "./components1216/board1224/QuillWrite1224";
+import BoardDBUpdate1226 from "./components1216/board1224/BoardDBUpdate1226";
+import BoardDBDetail1226 from "./components1216/board1224/BoardDBDetail1226";
+import BoardDBList1226 from "./components1216/board1224/BoardDBList1226";
+import BoardDBWrite1226 from "./components1216/board1224/BoardDBWrite1226";
 
 const App = () => {
   // Route의 path와 Header의 Link to는 일치해야 한다.
@@ -18,6 +22,10 @@ const App = () => {
       <Routes>
         <Route path="/" exact={true} element={<HomePage1216 />} />
         <Route path="/login" exact={true} element={<LoginPage1216 />} />
+        <Route path="/board" exact={true} element={<BoardDBList1226 />} />
+        <Route path="/board/write" exact={true} element={<BoardDBWrite1226/>} />
+        <Route path="/board/:n_no" exact={true} element={<BoardDBDetail1226 />} />
+        <Route path="/board/updatd/:n_no" exact={true} element={<BoardDBUpdate1226 />} />
         <Route path="/quill/write" exact={true} element={<QuillWrite1224 />} />
         <Route path="/noticeDB" exact={true} element={<NoticeDBList1219 />} />
         <Route path="/noticeDB/:n_no" exact={true} element={<NoticeDBDetail1220 />} />

@@ -11,7 +11,7 @@ const Header1216 = () => {
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="me-auto">
             <Link to="/" className="nav-link">Home</Link>
-            <Link to="/login" className="nav-link">게시판</Link>
+            <Link to="/board" className="nav-link">게시판</Link>
             <Link to="/quill/write" className="nav-link">QuillEditor</Link>
             <Link to="/notice" className="nav-link">공지사항</Link>
             <Link to="/noticeDB" className="nav-link">공지MySQL</Link>
