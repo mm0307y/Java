@@ -23,9 +23,9 @@ const App = () => {
         <Route path="/" exact={true} element={<HomePage1216 />} />
         <Route path="/login" exact={true} element={<LoginPage1216 />} />
         <Route path="/board" exact={true} element={<BoardDBList1226 />} />
-        <Route path="/board/write" exact={true} element={<BoardDBWrite1226/>} />
-        <Route path="/board/:n_no" exact={true} element={<BoardDBDetail1226 />} />
-        <Route path="/board/updatd/:n_no" exact={true} element={<BoardDBUpdate1226 />} />
+        <Route path="/board/write" exact={true} element={<BoardDBWrite1226 />} />
+        <Route path="/board/:b_no" exact={true} element={<BoardDBDetail1226 />} />
+        <Route path="/board/updatd/:b_no" exact={true} element={<BoardDBUpdate1226 />} />
         <Route path="/quill/write" exact={true} element={<QuillWrite1224 />} />
         <Route path="/noticeDB" exact={true} element={<NoticeDBList1219 />} />
         <Route path="/noticeDB/:n_no" exact={true} element={<NoticeDBDetail1220 />} />

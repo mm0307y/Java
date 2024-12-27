@@ -63,6 +63,92 @@ router.post("/board/imageUpload", (req, res) => {
   });
 });
 
+// http://localhost:5000/users/board/list
+router.get("/board/list", async (req, res) => {
+  const { gubun, keyword } = req.query;
+  console.log(`${gubun}, ${keyword}`);
+  let sql =
+    "select b_no, b_title, b_writer, b_content, b_date, b_hit from react_board";
+  // 조건 검색을 위해 사용자로 부터 받아오는 값에 따라 쿼리문을 변경 할것.
+  let params = [];
+  if (gubun && keyword) {
+    // 사용자로 부터 둘 다 받아왔을 때 조건 쿼리문 추가
+    if (gubun === "b_title") {
+      // select콤보에서 제목을 클릭했을 때
+      sql += " WHERE b_title LIKE ?";
+    } else if (gubun === "b_writer") {
+      // 작성자를 클릭했을 때
+      sql += " WHERE b_writer LIKE ?";
+    } else if (gubun === "b_content") {
+      // 내용을 클릭했을 때
+      sql += " WHERE b_content LIKE ?";
+    }
+    params.push(`%${keyword}%`);
+  } //// end of if문 사용자로 부터 조건값을 받았을 때
+  // 내림차순으로 정렬 추가
+  sql += " ORDER BY b_no desc";
+  try {
+    // 데이터베이스 쿼리 실행하기.
+    const [rows] = await db.get().execute(sql, params);
+
+    // 성공시 응답하기
+    res.json(rows);
+  } catch (error) {
+    console.error("Database error ", error);
+  } //// end of try, catch
+}); //// end of 게시글 목록
+
+// -> POST - http://localhost:5000/users/notice/insert
+// 공지글 쓰기
+router.post("/board/insert", async (req, res) => {
+  // 사용자가 화면에서 입력한 값 담기
+  const { b_title, b_writer, b_content } = req.body;
+  const sql =
+    "insert into react_board(b_title, b_writer, b_content, b_date) values(?,?,?,CURDATE())";
+
+  try {
+    // 데이터베이스 쿼리 실행하기.
+    const [result] = await db
+      .get()
+      .execute(sql, [b_title, b_writer, b_content]);
+    console.log(result); // 1이면 입력 성공, 0이면 입력 실패
+
+    // 성공시 응답하기
+    res.json({ success: true, result: result });
+  } catch (error) {
+    console.error("Database error ", error);
+    return res
+      .status(500)
+      .send({ message: "글 쓰기 중 오류가 발생 했습니다." });
+  } //// end of try, catch
+}); //// end of 게시글 쓰기
+
+// 게시글 상세보기
+router.get("/board/:b_no", async (req, res) => {
+  const b_no = req.params.b_no; // 사용자가 선택한 글번호
+  // 한 건을 조회하기 위해서 where절을 사용한다. -pk조건절 사용한다.
+  let sql =
+    "select b_no, b_title, b_writer, b_content from react_board where b_no=?";
+
+  try {
+    // 데이터베이스 쿼리 실행하기.
+    const [rows] = await db.get().execute(sql, [b_no]);
+
+    // 조회결과가 없는 경우 처리
+    if (rows.length === 0) {
+      return res.status(404).send({ message: "해당 글을 찾을 수 없습니다." });
+    }
+
+    // 성공시 응답하기
+    res.json(rows[0]);
+  } catch (error) {
+    console.error("Database error ", error);
+    return res
+      .status(500)
+      .send({ message: "글 상세보기 처리 중 오류가 발생 했습니다." });
+  } //// end of try, catch
+}); //// end of 게시글 상세보기
+
 // http://localhost:5000/users/notice/list
 router.get("/notice/list", async (req, res) => {
   const { gubun, keyword } = req.query;
@@ -126,18 +212,19 @@ router.get("/notice/detail/:n_no", async (req, res) => {
 // 공지글 쓰기
 router.post("/notice/insert", async (req, res) => {
   // 사용자가 화면에서 입력한 값 담기
-  const { n_no, n_title, n_writer, n_content } = req.body;
-  const sql = "insert into notice(n_title, n_writer, n_content) values(?,?,?)";
+  const { n_title, n_writer, n_content } = req.body;
+  const sql =
+    "insert into notice(n_no, n_title, n_writer, n_content) values(?,?,?)";
 
   try {
     // 데이터베이스 쿼리 실행하기.
     const [result] = await db
       .get()
-      .execute(sql, [n_no, n_title, n_writer, n_content]);
+      .execute(sql, [n_title, n_writer, n_content]);
     console.log(result); // 1이면 입력 성공, 0이면 입력 실패
 
     // 성공시 응답하기
-    res.json({ result: result });
+    res.json({ success: true, result: result });
   } catch (error) {
     console.error("Database error ", error);
     return res
@@ -171,7 +258,7 @@ router.put("/notice/update/:n_no", async (req, res) => {
     // 성공시 응답하기
     res.json({ result: result });
   } catch (error) {
-    console.error("Database error ", error);
+    console.error("Database error : ", error);
     return res
       .status(500)
       .send({ message: "글 수정 처리 중 오류가 발생 했습니다." });
@@ -197,24 +284,5 @@ router.delete("/notice/delete/:n_no", async (req, res) => {
       .send({ message: "글 삭제 처리 중 오류가 발생 했습니다." });
   } //// end of try, catch
 }); //// end of 글 삭제
-
-// -> POST - http://localhost:5000/users/notice/insert
-// 공지글 쓰기
-router.post("/board/insert", function (req, res) {
-  // 사용자가 화면에서 입력한 값 담기
-  const { n_no, b_title, n_writer, n_content } = req.body;
-  const sql = "insert into notice(n_title, n_writer, n_content) values(?,?,?)";
-  db.get().query(sql, [n_title, n_writer, n_content], function (err, result) {
-    if (err) {
-      // 입력 실패했을 때
-      console.error("Database error : ", err);
-      return res.sendStatus(500);
-    } else {
-      // 입력 성공했을 때
-      console.log("insert result : ", result);
-      res.send({ success: true, result });
-    }
-  });
-});
 
 module.exports = router;
