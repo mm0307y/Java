@@ -13,6 +13,7 @@ import BoardDBUpdate1226 from "./components1216/board1224/BoardDBUpdate1226";
 import BoardDBDetail1226 from "./components1216/board1224/BoardDBDetail1226";
 import BoardDBList1226 from "./components1216/board1224/BoardDBList1226";
 import BoardDBWrite1226 from "./components1216/board1224/BoardDBWrite1226";
+import PaginationTest from "./components1216/board1224/PaginationTest";
 
 const App = () => {
   // Route의 path와 Header의 Link to는 일치해야 한다.
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/notice/:n_no" exact={true} element={<NoticeDetail1216 />} />
         <Route path="/noticeT" exact={true} element={<NoticeTestList1218 />} />
         <Route path="/noticeTD" exact={true} element={<NoticeTestDetail1218 />} />
+        <Route path="/page" exact={true} element={<PaginationTest />} />
       </Routes>
     </>
   );

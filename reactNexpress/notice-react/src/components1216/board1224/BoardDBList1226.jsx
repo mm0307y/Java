@@ -5,9 +5,12 @@ import './board.css'
 import { useNavigate } from 'react-router'
 import BoardDBItem1226 from './BoardDBItem1226'
 import { boardListDB } from '../../service1216/dbLogic1218'
+import { Pagination } from 'react-bootstrap'
 
 const BoardDBList1226 = () => {
   const navigate = useNavigate()
+  const itemsPerPage = 5 // 페이지 당 항목 수
+  const [currentPage, setCurrentPage] = useState(1) // 현재 상태를 관리하는 훅
   const [gubun, setGubun] = useState('')
   const [keyword, setKeyword] = useState('')
   const [board, setBoard] = useState({
@@ -65,6 +68,21 @@ const BoardDBList1226 = () => {
     setKeyword(event.target.value)
     boardList()
   }
+
+  // 마지막 항목인데스 : 현재페이지와 페이징당 항목 수를 곱하여 계산
+  // -> 5, 10, 15, 20, 25, 30, 35, 40, 45, 50
+  const indexOfLastItem = currentPage * itemsPerPage
+
+  // 첫번쨰 항목 인덱스 : 마지막 항목 인덱스에서 페이지당 항목 수를 뺀값
+  const indexOffFirstItem = indexOfLastItem - itemsPerPage
+
+  // 현재 페이지 항목 - 현재 페이지에 표시할 데이터를 추출하기
+  const currentItems = boards.slice(indexOffFirstItem, indexOfLastItem)
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber)
+  }
+
   return (
     <>
       <Header1216 />
@@ -104,12 +122,38 @@ const BoardDBList1226 = () => {
           {/* props로 넘어온 상태값이 빈 깡통이면 실행하지 않기 */}
           <tbody>
             {
-              boards && boards.map((board, index) => (
-                <BoardDBItem1226 key={index} board={board} />
+              currentItems.map((board, index) => (
+                <BoardDBItem1226 key={index} board={board} page={currentPage} />
               ))}
           </tbody>
           {/* 데이터셋 연동하기 */}
         </table>
+        <div className='d-flex justify-content-center'>
+          <Pagination>
+            <Pagination.First
+              onClick={() => handlePageChange(1)}
+              disabled={currentPage === 1} />
+            <Pagination.Prev
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1} />
+            {
+              Array.from({ length: Math.ceil(boards.length / itemsPerPage) }, (_, i) => i + 1).map((pageNumber) => (
+                <Pagination.Item
+                  active={currentPage === pageNumber}
+                  key={pageNumber}
+                  onClick={() => handlePageChange(pageNumber)}>{pageNumber}</Pagination.Item>
+              ))
+            }
+            < Pagination.Next
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === Math.ceil(boards.length / itemsPerPage)} />
+            <Pagination.Last
+              onClick={() => handlePageChange(Math.ceil(boards.length / itemsPerPage))}
+              disabled={currentPage === Math.ceil(boards.length / itemsPerPage)} />
+          </Pagination>
+        </div>
+
+
         <hr />
         <div className='list-footer'>
           <button className="btn btn-outline-primary" onClick={boardList}>전체조회</button>

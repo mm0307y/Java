@@ -2,7 +2,7 @@ import React from 'react'
 import { BButton } from '../../styles1226/FormStyles'
 import { useNavigate } from 'react-router';
 
-const BoardHeader1226 = ({ board, b_no }) => {
+const BoardHeader1226 = ({ board, b_no, page }) => {
   const navigate = useNavigate();
 
   const boardDelete = () => {
@@ -10,7 +10,7 @@ const BoardHeader1226 = ({ board, b_no }) => {
   }
 
   const boardList = () => {
-
+    navigate(`/board?page=${page}`)
   }
 
   return (

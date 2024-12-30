@@ -7,7 +7,17 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+
+  // 톰캣 서버와 연동한 프록시 설정
+  app.use(
+    "/pojo",
+    createProxyMiddleware({
+      target: "http://localhost:8000", // 톰캣 서버의 주소및 포트번 화
+      changeOrigin: true,
+    })
+  );
 };
+
 /*
     Node.js환경에서 사용할 수 있는 http-proxy-middleware 라이브러리를 이용해서 
     프록시 미들웨어를 설정하는 스크립트 이다.

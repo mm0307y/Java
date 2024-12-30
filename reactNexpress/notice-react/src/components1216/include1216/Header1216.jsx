@@ -16,6 +16,8 @@ const Header1216 = () => {
             <Link to="/notice" className="nav-link">공지사항</Link>
             <Link to="/noticeDB" className="nav-link">공지MySQL</Link>
             <Link to="/noticeT" className="nav-link">공지데모</Link>
+            <Link to="/page" className="nav-link">페이징처리</Link>
+
           </Nav>
         </Container>
       </Navbar>

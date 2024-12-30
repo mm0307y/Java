@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react'
 import Header1216 from '../include1216/Header1216'
 import Footer1216 from '../include1216/Footer1216'
 import { ContainerDiv, FormDiv, HeaderDiv } from '../../styles1226/FormStyles'
-import { useParams } from 'react-router'
+import { useLocation, useParams } from 'react-router'
 import { boardDetailDB } from '../../service1216/dbLogic1218'
 import BoardHeader1226 from './BoardHeader1226'
 
 const BoardDBDetail1226 = () => {
+  const location = useLocation()
   // url에서 b_no값 받아오기 
   let { b_no } = useParams()
   console.log("사용자가 선택한 글 번호 : " + b_no)
+  const queryParams = new URLSearchParams(location.search)
+  const page = queryParams.get(`page`) || 1
   const [board, setBoard] = useState({})
 
   // useEffect는 최초 한번만 실행이 된다. - 의존성 배열이 빈 값이면
@@ -30,7 +33,7 @@ const BoardDBDetail1226 = () => {
           <h3>게시글 상세보기</h3>
         </HeaderDiv>
         <FormDiv>
-          <BoardHeader1226 board={board} b_no={b_no} />
+          <BoardHeader1226 board={board} b_no={b_no} page={page} />
           <section>
             <div dangerouslySetInnerHTML={{ __html: board.b_content }}></div>
           </section>
