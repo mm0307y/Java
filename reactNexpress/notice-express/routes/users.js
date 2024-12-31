@@ -124,11 +124,11 @@ router.post("/board/insert", async (req, res) => {
 }); //// end of 게시글 쓰기
 
 // 게시글 상세보기
-router.get("/board/:b_no", async (req, res) => {
+router.get("/board/detail/:b_no", async (req, res) => {
   const b_no = req.params.b_no; // 사용자가 선택한 글번호
   // 한 건을 조회하기 위해서 where절을 사용한다. -pk조건절 사용한다.
   let sql =
-    "select b_no, b_title, b_writer, b_content from react_board where b_no=?";
+    "select b_no, b_title, b_writer, b_content, b_date, b_hit from react_board where b_no=?";
 
   try {
     // 데이터베이스 쿼리 실행하기.
@@ -148,6 +148,61 @@ router.get("/board/:b_no", async (req, res) => {
       .send({ message: "글 상세보기 처리 중 오류가 발생 했습니다." });
   } //// end of try, catch
 }); //// end of 게시글 상세보기
+
+// 게시글 수정
+router.put("/board/update/:b_no", async (req, res) => {
+  // 사용자가 화면에서 수정한 값 담기
+  const b_no = req.params.b_no;
+  console.log(b_no);
+  const { b_title, b_writer, b_content } = req.body;
+
+  // 필수 필드 확인
+  if (!b_title || !b_writer || !b_content) {
+    console.error("Missing fields : ", req.body);
+    return res.status(400).send("요청한 데이터가 틀렸을 때.");
+  }
+
+  const sql =
+    "update react_board set b_title=?, b_writer=?, b_content=? where b_no=?";
+
+  try {
+    // 데이터베이스 쿼리 실행하기.
+    //query요청시에 ?순서와 변수의 순서가 일치해야 합니다.
+    const [result] = await db
+      .get()
+      .execute(sql, [b_title, b_writer, b_content, b_no]);
+    console.log(result); // 1이면 입력 성공, 0이면 입력 실패
+
+    // 성공시 응답하기
+    res.json({ result: result });
+  } catch (error) {
+    console.error("Database error : ", error);
+    return res
+      .status(500)
+      .send({ message: "글 수정 처리 중 오류가 발생 했습니다." });
+  } //// end of try, catch
+}); //// end of 게시글 수정
+
+// 게시글 삭제 - delete from react_delete where b_no = ?
+router.delete("/board/delete/:b_no", async (req, res) => {
+  // 사용자가 화면에서 수정한 값 담기
+  const b_no = req.params.b_no;
+  console.log(b_no);
+  const sql = "delete from react_board where b_no=?";
+
+  try {
+    // 데이터베이스 쿼리 실행하기.
+    const [result] = await db.get().execute(sql, [b_no]);
+
+    // 성공시 응답하기
+    res.json({ result: result });
+  } catch (error) {
+    console.error("Database error ", error);
+    return res
+      .status(500)
+      .send({ message: "글 삭제 처리 중 오류가 발생 했습니다." });
+  } //// end of try, catch
+}); //// end of 글 삭제
 
 // http://localhost:5000/users/notice/list
 router.get("/notice/list", async (req, res) => {

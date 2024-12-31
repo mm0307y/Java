@@ -68,7 +68,7 @@ export const boardDetailDB = (b_no) => {
     try {
       const response = axios({
         method: "get",
-        url: process.env.REACT_APP_EXPRESS_IP + "users/board/" + b_no,
+        url: process.env.REACT_APP_EXPRESS_IP + "users/board/detail/" + b_no,
       });
       resolve(response); //성공했을 때
     } catch (error) {
@@ -76,6 +76,45 @@ export const boardDetailDB = (b_no) => {
     } //end of try..catch
   });
 }; //// end of boardDetailDB
+
+//  게시글 수정하기
+export const boardUpdateDB = (board) => {
+  // 사용자가 입력한 값 출력하기
+  console.log(board);
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "put",
+        url:
+          process.env.REACT_APP_EXPRESS_IP + "users/board/update/" + board.b_no,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: board, // get방식 : params
+      });
+      resolve(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}; //// end of boadrUpdatDB
+
+// 게시글 삭제
+export const boardDeleteDB = (b_no) => {
+  // 파라미터 값을 출력해 보기 - delete from react_board where b_no=?
+  console.log(b_no); // 목록에서 제목을 클릭했을때 그 row의 b_no를 가져온다.
+  return new Promise((resolve, reject) => {
+    try {
+      const response = axios({
+        method: "delete",
+        url: process.env.REACT_APP_EXPRESS_IP + "users/board/delete/" + b_no,
+      });
+      resolve(response); // 성공했을 때
+    } catch (error) {
+      reject(error); // 실패했을 때
+    } //// end of try..catch
+  });
+}; //// end of noticeDeletDB
 
 export const noticeListDB = (params) => {
   //파라미터 값을 출력해 보기 - SELECT * FROM notice WHERE n_content like '%'||?||'%'

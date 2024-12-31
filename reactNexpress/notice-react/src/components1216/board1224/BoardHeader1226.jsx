@@ -1,12 +1,19 @@
 import React from 'react'
 import { BButton } from '../../styles1226/FormStyles'
 import { useNavigate } from 'react-router';
+import { boardDeleteDB } from '../../service1216/dbLogic1218';
 
 const BoardHeader1226 = ({ board, b_no, page }) => {
   const navigate = useNavigate();
 
   const boardDelete = () => {
-
+    const asyncDB = async () => {
+      const res = await boardDeleteDB(b_no)
+      console.log(res.data)
+    }
+    asyncDB()
+    // navigate(`/board`)
+    window.location.href = '/board'
   }
 
   const boardList = () => {

@@ -41,8 +41,6 @@ const BoardDBWrite1226 = () => {
     }
   }
 
-
-
   // 함수의 메모리제이션은 useCallback으로 처리하고 변수에 대한 메모이제이셔은 useMemo처리한다.
   const handleTitle = useCallback((value) => {
     setTitle(value)

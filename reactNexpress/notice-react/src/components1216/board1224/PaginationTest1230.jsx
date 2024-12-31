@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Pagination } from 'react-bootstrap';
 
-const PaginationTest = () => {
+const PaginationTest1230 = () => {
   const items = Array.from({ length: 55 }, (_, i) => `item ${i + 1}`)
   const itemsPerPage = 5 // 페이지 당 항목 수
   const [currentPage, setCurrentPage] = useState(1) // 현재 상태를 관리하는 훅
@@ -27,7 +27,7 @@ const PaginationTest = () => {
         <h2>페이징 처리 연습</h2>
         <ul>
           {currentItems.map((item, index) => (
-            <li className='list-group mb-3' >{item}</li>
+            <li key={index} className='list-group mb-3' >{item}</li>
           ))}
         </ul>
         <div className='d-flex justify-content-center'>
@@ -60,4 +60,4 @@ const PaginationTest = () => {
   );
 }
 
-export default PaginationTest
+export default PaginationTest1230
