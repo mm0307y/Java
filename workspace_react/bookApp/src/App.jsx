@@ -1,15 +1,13 @@
 import { Route, Routes } from "react-router";
-import HomePage1204 from "./components1204/pages1204/HomePage1204";
-import LoginPage1204 from "./components1204/auth1204/LoginPage1204";
-import NoticePager1204 from "./components1204/pages1204/NoticePager1204";
+import HomePage0102 from "./components0102/pages0102/HomePage0102";
+import LoginPage0102 from "./components0102/auth0102/LoginPage0102";
 
 const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" exact={true} element={<HomePage1204/>} />
-        <Route path="/login" exact={true} element={<LoginPage1204/>} />
-        <Route path="/notice/list" exact={true} element={<NoticePager1204/>} />
+        <Route path="/" exact={true} element={<HomePage0102 />} />
+        <Route path="/login" exact={true} element={<LoginPage0102 />} />
       </Routes>
     </>
   );
