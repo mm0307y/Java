@@ -6,6 +6,10 @@
     <br />
     <%-include('book_11_22/recentBook_11_22.ejs')%> <!-- 최근 도서목록 -->
   </div>
+  <script>
+    const nickname = "<%= nickname %>"
+    console.log(`세션에서 가져온 닉네임은 : ${nickname}`)
+  </script>
 </div>
 <!-- 
 class="row my-5"
