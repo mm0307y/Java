@@ -1,18 +1,19 @@
 import { Route, Routes } from "react-router";
-import HomePage0102 from "./components0102/pages0102/HomePage0102";
-import LoginPage0102 from "./components0102/auth0102/LoginPage0102";
-import KakaoCallback0103 from "./components0102/auth0102/KakaoCallback0103";
-import ZipcodeSearch0103 from "./components0102/kakao0103/ZipcodeSearch0103";
+import HomePage0103 from "./components0103/pages0103/HomePage0103";
+import SignupPage0103 from "./components0103/auth0103/SignupPage0103";
+import LoginView0103 from "./components0103/auth0103/LoginView0103";
 
 const App = () => {
   return (
     <>
-      <Routes>
-        <Route path="/" exact={true} element={<HomePage0102 />} />
-        <Route path="/login" exact={true} element={<LoginPage0102 />} />
-        <Route path="/auth/kakao/callback" exact={true} element={<KakaoCallback0103 />} />
-        <Route path="/zipcode" exact={true} element={<ZipcodeSearch0103 />} />
-      </Routes>
+      <div className="container">
+        <Routes>
+          <Route path="/" exact={true} element={<HomePage0103 />} />
+          <Route path="/login" exact={true} element={<LoginView0103 />} />
+          {/* 1. 일반회원/login/signup?type=member, 2.코치일때: /login/signup?type=teacher */}
+          <Route path="/login/signup" element={<SignupPage0103 />} />
+        </Routes>
+      </div>
     </>
   );
 }
