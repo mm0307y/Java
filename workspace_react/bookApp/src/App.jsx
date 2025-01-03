@@ -1,6 +1,8 @@
 import { Route, Routes } from "react-router";
 import HomePage0102 from "./components0102/pages0102/HomePage0102";
 import LoginPage0102 from "./components0102/auth0102/LoginPage0102";
+import KakaoCallback0103 from "./components0102/auth0102/KakaoCallback0103";
+import ZipcodeSearch0103 from "./components0102/kakao0103/ZipcodeSearch0103";
 
 const App = () => {
   return (
@@ -8,6 +10,8 @@ const App = () => {
       <Routes>
         <Route path="/" exact={true} element={<HomePage0102 />} />
         <Route path="/login" exact={true} element={<LoginPage0102 />} />
+        <Route path="/auth/kakao/callback" exact={true} element={<KakaoCallback0103 />} />
+        <Route path="/zipcode" exact={true} element={<ZipcodeSearch0103 />} />
       </Routes>
     </>
   );

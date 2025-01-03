@@ -1,6 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Carousel } from 'react-bootstrap'
+import $ from 'jquery'
 
 const Header0102 = () => {
+  // const email = localStorage.getItem("email") // 하면 안되는코드!
+  const [nickname, setNickname] = useState('')
+  useEffect(() => {
+    setNickname(localStorage.getItem("nickname"))
+    if (nickname) {
+      $("#login, #logout, #mypage, #cart").toggle()
+      $("#mypage a").html(nickname)
+    }
+  }, [nickname])
+
+  const logout = () => {
+    localStorage.removeItem("nickname")
+    $("#login, #logout, #mypage, #cart").toggle()
+    $("#mypage a").html("로그인")
+  }
+
   // 아래 부분이 화면 처리부분
   return (
     <>
@@ -25,9 +43,6 @@ const Header0102 = () => {
               <li className="nav-item" id="cart" style={{ display: 'none' }}>
                 <a className="nav-link active" aria-current="page" href="/users/cart">장바구니</a>
               </li>
-              <li className="nav-item" id="mypage" style={{ display: 'none' }}>
-                <a href="/users/mypage" aria-current="page" className="nav-link active">MyPage</a>
-              </li>
             </ul>
             {/* ================================  ============================================ */}
 
@@ -36,11 +51,11 @@ const Header0102 = () => {
                 <li className="nav-item" id="login">
                   <a href="/login" aria-current="page" className="nav-link active">로그인</a>
                 </li>
-                <li className="nav-item" id="email" style={{ display: 'none' }}>
-                  <a href=" " aria-current="page" className="nav-link active">현사용자 이메일 정보 출력자리</a>
+                <li className="nav-item" id="mypage" style={{ display: 'none' }}>
+                  <a href="/users/mypage" aria-current="page" className="nav-link active">MyPage</a>
                 </li>
                 <li className="nav-item" id="logout" style={{ display: 'none' }}>
-                  <a href=" " aria-current="page" className="nav-link active">로그아웃</a>
+                  <a href=" " aria-current="page" className="nav-link active" onClick={logout}>로그아웃</a>
                 </li>
               </ul>
             </div>
@@ -48,20 +63,22 @@ const Header0102 = () => {
           </div>
         </div>
       </nav>
-      <div id="slider-div">
-        <div>
-          <img src="/images/header01.png" alt="배너ChatGPT" width="100%" />
-        </div>
-        <div>
-          <img src="/images/header02.png" alt="배너ChatGPT" width="100%" />
-        </div>
-        <div>
-          <img src="/images/header03.png" alt="배너ChatGPT" width="100%" />
-        </div>
-        <div>
-          <img src="/images/header04.png" alt="배너ChatGPT" width="100%" />
-        </div>
-      </div>
+      {/* ================================== [[도서 배너 추가]] ============================================ */}
+      <Carousel data-bs-theme="dark">
+        <Carousel.Item>
+          <img className="d-block w-100" src="/images/header01.png" alt="배너ChatGPT" width="100%" />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img className="d-block w-100" src="/images/header02.png" alt="배너ChatGPT" width="100%" />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img className="d-block w-100" src="/images/header03.png" alt="배너ChatGPT" width="100%" />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img className="d-block w-100" src="/images/header04.png" alt="배너ChatGPT" width="100%" />
+        </Carousel.Item>
+      </Carousel>
+      {/* ================================== [[도서 배너 추가]] ============================================ */}
     </>
   )
 }

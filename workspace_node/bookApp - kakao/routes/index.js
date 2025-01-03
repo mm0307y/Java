@@ -5,14 +5,22 @@ const router = express.Router();
 /* GET home page. */
 /* localhost:5000 엔터로 요청을 하면 6번이 인터셉트해서 homme_11_22.ejs를 요청한다. */
 router.get("/", function (req, res, next) {
-  console.log("인증 후 nickName : " + req.session.nickname) // 최초에는 is not defined, null
+  console.log("인증 후 nickName : " + req.session.nickname); // 최초에는 is not defined, null
   // 세션에 nickname이 있다면 홈페이지로 입장하고
-  if(req.session.nickname){
-    res.render("index", { title: "Home", pageName: "home_11_22.ejs", nickname: req.session.nickname });
+  if (req.session.nickname) {
+    res.render("index", {
+      title: "Home",
+      pageName: "home_11_22.ejs",
+      nickname: req.session.nickname,
+    });
   }
   // 세션에 nickname이 없다면 로그인 페이지로 입장하자.
-  else{
-    res.render("index", { title: "로그인", pageName: "auth_11_22/login_11_22.ejs", nickname: null });
+  else {
+    res.render("index", {
+      title: "로그인",
+      pageName: "auth_11_22/login_11_22.ejs",
+      nickname: null,
+    });
   }
 });
 
@@ -33,10 +41,10 @@ router.get("/login", function (req, res, next) {
 /* 첫번째 파라미터 : req는 요청객체이다. 세션생성, 세션삭제, 센셔추가 */
 router.get("/logout", function (req, res, next) {
   // 세션 정보 삭제하기
-  req.session.destroy()
+  req.session.destroy();
 
   // 세션 정보 삭제되고 나면 home으로 이동
-  
+
   // res.send() // 요청에 대한 메시지를 문자열로 내보낼 때
   // res.render() // 요청에 대한 응답요청을 내보낼 때
   res.redirect("/");
@@ -86,17 +94,20 @@ router.get("/auth/kakao/callback", async (req, res, next) => {
     // 세션에 당장 저장해줘
     // 로그인 시키고 메인페이지로 이동
     req.session.save(() => {
-      res.redirect('/');
+      res.redirect("/");
     });
-  } //// end of try
-  catch (error) {
-    console.error("토큰 가져오기 실패 ", error.res1 ? error.res1.data:error.message);
+  } catch (error) {
+    //// end of try
+    console.error(
+      "토큰 가져오기 실패 ",
+      error.res1 ? error.res1.data : error.message
+    );
 
     // 에러 응답 처리
     res.status(500).json({
-      error: '카카오 서버로부터 토큰 접근에 실패하였습니다.',
-      details: error.res1 ? error.res1.data : error.message
-    })
+      error: "카카오 서버로부터 토큰 접근에 실패하였습니다.",
+      details: error.res1 ? error.res1.data : error.message,
+    });
   } //// end of catch
 }); //// end of kakaoLogin
 
