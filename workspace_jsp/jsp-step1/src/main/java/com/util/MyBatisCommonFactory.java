@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import lombok.extern.log4j.Log4j2;
 
+// 아래 클래스는 프르링 프레임워크로부터 객체에 대한 라이프사이클을 관리받지 않는 클래스 
+
 @Log4j2
 public class MyBatisCommonFactory {
 
