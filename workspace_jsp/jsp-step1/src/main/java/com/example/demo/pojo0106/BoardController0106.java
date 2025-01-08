@@ -1,9 +1,13 @@
 package com.example.demo.pojo0106;
 
+import java.util.List;
+import java.util.Map;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class BoardController0106 implements Controller0106 {
+  BoardLogic0106 boardLogic = new BoardLogic0106();
 
   @Override
   public String execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
@@ -17,27 +21,39 @@ public class BoardController0106 implements Controller0106 {
 
     // 글 목록 조회 할거야?
     if ("boardList".equals(upmu[1])) {
-
+      // 메서드 호출
+      // 인스턴스화 - 누구를 인스턴스화 하면 되나요? XXX.Logice.java
+      // 주소번지(인턴스변수).메서드이름(싱글톤)
+      // 메서드 선언이 아직 안되어 있다. - 메서드  선언을 한다는건 리턴타입과 파라미터를 결정하는 일이다.
+      List<Map<String, Object>> bList = boardLogic.boardList();
     }
 
     // 글 등록하기 구현
     else if ("boardInsert".equals(upmu[1])) {
-
+      // 메서드 호출
+      // 주소번지.메서드이름
+      int result = boardLogic.boardInsert();
     }
 
     // 글 수정하기 구현
     else if ("boardUpdate".equals(upmu[1])) {
-
+      // 메서드 호출
+      // 주소번지.메서드이름
+      int result = boardLogic.boardUpdate();
     }
 
     // 글 삭제하기 구현
     else if ("boardDelete".equals(upmu[1])) {
-
+      // 메서드 호출
+      // 주소번지.메서드이름
+      int result = boardLogic.boardDelete();
     }
 
     // 글 상세보기 구현
     else if ("boardDetail".equals(upmu[1])) {
-
+      // 메서드 호출
+      // 주소번지.메서드이름
+      List<Map<String, Object>> bList = boardLogic.boardDetail();
     }
     return null;
   }
