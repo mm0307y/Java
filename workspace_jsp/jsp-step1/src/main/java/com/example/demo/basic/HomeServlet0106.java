@@ -57,6 +57,6 @@ public class HomeServlet0106 extends HttpServlet {
  * doDelete(req,res) : return 타입은 void
  * 
  * 표준 서블릿은 req와 res에 의존적이다.
- * 스프링은 req와 res가 없더라도 페이지 이동처리, 세션활용,마임타임 설정.... 모두
+ * 스프링은 req와 res가 없더라도 페이지 이동처리, 세션활용,마임타임 설정.... 모두 가능하다.
  * 
  */

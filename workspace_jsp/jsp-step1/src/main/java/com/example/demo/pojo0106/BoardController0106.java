@@ -1,11 +1,17 @@
 package com.example.demo.pojo0106;
 
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 public class BoardController0106 implements Controller0106 {
   BoardLogic0106 boardLogic = new BoardLogic0106();
 
@@ -20,40 +26,64 @@ public class BoardController0106 implements Controller0106 {
     // 왜 서블릿에서 이것이 최선인가? - 개발자가 작성하는 메서드 이름을 알 수 없다.
 
     // 글 목록 조회 할거야?
-    if ("boardList".equals(upmu[1])) {
+    log.info(upmu[1]);
+    if ("jsonBoardList".equals(upmu[1])) {
+      log.info("jsonBoardList");
       // 메서드 호출
       // 인스턴스화 - 누구를 인스턴스화 하면 되나요? XXX.Logice.java
       // 주소번지(인턴스변수).메서드이름(싱글톤)
       // 메서드 선언이 아직 안되어 있다. - 메서드  선언을 한다는건 리턴타입과 파라미터를 결정하는 일이다.
       List<Map<String, Object>> bList = boardLogic.boardList();
+      log.info("bList ===> " + bList); // 0이면 조회결과가 없습니다. 1이면 조회결과가 1건이다.
+      Gson g = new Gson();
+      String temp = g.toJson(bList);
+      res.setContentType("application/json;charset=utf-8");
+
+      // 응답객체가 제공하는 getWriter()로 객체를 생성한다.
+      // 메서드의 리턴타입으로 객체를 생성하는 것은 예를 들어 if문으로
+      // null 체크와 같은 과정을 거칠 수 있다.
+      // 만일 3,4번 문장과 아래 문자의 순서를 바꾸면 한글이 깨진다.
+      PrintWriter out = res.getWriter();
+      out.print(temp);
+    }
+
+    else if ("boardList".equals(upmu[1])) {
+      // 메서드 호출
+      // 인스턴스화 - 누구를 인스턴스화 하면 되나요? XXX.Logice.java
+      // 주소번지(인턴스변수).메서드이름(싱글톤)
+      // 메서드 선언이 아직 안되어 있다. - 메서드  선언을 한다는건 리턴타입과 파라미터를 결정하는 일이다.
+      // List<Map<String, Object>> bList = boardLogic.boardList();
     }
 
     // 글 등록하기 구현
     else if ("boardInsert".equals(upmu[1])) {
       // 메서드 호출
       // 주소번지.메서드이름
-      int result = boardLogic.boardInsert();
+      // int result = boardLogic.boardInsert();
     }
 
     // 글 수정하기 구현
     else if ("boardUpdate".equals(upmu[1])) {
       // 메서드 호출
       // 주소번지.메서드이름
-      int result = boardLogic.boardUpdate();
+      // int result = boardLogic.boardUpdate();
     }
 
     // 글 삭제하기 구현
     else if ("boardDelete".equals(upmu[1])) {
       // 메서드 호출
       // 주소번지.메서드이름
-      int result = boardLogic.boardDelete();
+      // int result = boardLogic.boardDelete();
     }
 
     // 글 상세보기 구현
     else if ("boardDetail".equals(upmu[1])) {
       // 메서드 호출
       // 주소번지.메서드이름
+      Map<String, Object> pmap = new HashMap<>();
+      pmap.put("b_no",1);
       List<Map<String, Object>> bList = boardLogic.boardDetail();
+      log.info(bList.size());
     }
     return null;
   }

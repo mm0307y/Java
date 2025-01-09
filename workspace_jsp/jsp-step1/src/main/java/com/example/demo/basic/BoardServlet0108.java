@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -28,8 +30,9 @@ public class BoardServlet0108 extends HttpServlet {
     row.put("b_content", "글내용1에 대한 내용1");
     row.put("b_hit", 15);
     detailList.add(row);
-    System.out.println(detailList.toString());
-
+    Gson g = new Gson();
+    String temp = g.toJson(detailList);
+    System.out.println(temp);
   }
 
 }
