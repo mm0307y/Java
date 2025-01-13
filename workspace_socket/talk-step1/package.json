@@ -1,7 +1,7 @@
 {
   "name": "talk-step1",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server0113.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "koa": "^2.15.3"
+    "koa": "^2.15.3",
+    "koa-send": "^5.0.1",
+    "koa-static": "^5.0.0"
   }
 }
