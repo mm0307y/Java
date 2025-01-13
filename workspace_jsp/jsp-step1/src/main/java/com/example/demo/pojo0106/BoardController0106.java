@@ -33,8 +33,8 @@ public class BoardController0106 implements Controller0106 {
       // 인스턴스화 - 누구를 인스턴스화 하면 되나요? XXX.Logice.java
       // 주소번지(인턴스변수).메서드이름(싱글톤)
       // 메서드 선언이 아직 안되어 있다. - 메서드  선언을 한다는건 리턴타입과 파라미터를 결정하는 일이다.
-      List<Map<String, Object>> bList = boardLogic.boardList();
-      log.info("bList ===> " + bList); // 0이면 조회결과가 없습니다. 1이면 조회결과가 1건이다.
+      List<Map<String, Object>> bList = boardLogic.boardList(null);
+      log.info("bList ===> " + bList.size()); // 0이면 조회결과가 없습니다. 1이면 조회결과가 1건이다.
       Gson g = new Gson();
       String temp = g.toJson(bList);
       res.setContentType("application/json;charset=utf-8");
@@ -53,6 +53,7 @@ public class BoardController0106 implements Controller0106 {
       // 주소번지(인턴스변수).메서드이름(싱글톤)
       // 메서드 선언이 아직 안되어 있다. - 메서드  선언을 한다는건 리턴타입과 파라미터를 결정하는 일이다.
       // List<Map<String, Object>> bList = boardLogic.boardList();
+      return "forward:list.jsp";
     }
 
     // 글 등록하기 구현
@@ -82,7 +83,7 @@ public class BoardController0106 implements Controller0106 {
       // 주소번지.메서드이름
       Map<String, Object> pmap = new HashMap<>();
       pmap.put("b_no",1);
-      List<Map<String, Object>> bList = boardLogic.boardDetail();
+      List<Map<String, Object>> bList = boardLogic.boardDetail(pmap);
       log.info(bList.size());
     }
     return null;

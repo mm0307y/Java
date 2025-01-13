@@ -15,7 +15,7 @@ import lombok.extern.log4j.Log4j2;
 public class BoardDao0106 {
   MyBatisCommonFactory mcf = new MyBatisCommonFactory();
 
-  public List<Map<String, Object>> boardList() {
+  public List<Map<String, Object>> boardList(Map<String,Object> pmap) {
     List<Map<String, Object>> bList = null;
 
     // 물리적으로 떨어져 있는 서버에 커넥션을 맞는다.

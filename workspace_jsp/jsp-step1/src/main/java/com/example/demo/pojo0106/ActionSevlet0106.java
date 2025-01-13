@@ -65,14 +65,35 @@ public class ActionSevlet0106 extends HttpServlet {
     req.setAttribute("upmu", upmu); // 결과적으로 얕은복사가 된다.
     
     // 웹서비스에 필요한 requset와 response 객체는 ActionServlet으로 부터 주입 받는다.
-    BoardController0106 bardController = new BoardController0106();
+    BoardController0106 boardController = new BoardController0106();
     log.info("69");
     try {
       // execute메서드의 선언에서 예외처리를 직접하지 않고 나를 호출한 곳에서 하시오.
       // 라는 의미로 throws하였다. 에러가 발생한다. -> 예외처리를 더 이상 미룰 수 없으니 네가 try_catch추가하가ㅗ
       // 그 안에서 메서드 호출을 하면 된다.
-      log.info("execute 메서드 호출 직전");
-      bardController.execute(req, res);
+      log.info("execute before");
+
+      // 리턴값으로 받는 정보가 페이지 이름과 redirect인지 forward인지에 대한 정보가 들어있다.
+      // return "redirect:list.do"
+      // return "forward:list.jsp"
+      String result = boardController.execute(req, res);
+      // 백엔드에서 다시 프론트로 올라올 때
+      log.info("execute after....");
+      // 아래 배열에는 응답페이지 처리에 필요한 정보 담긴다.
+      // forward:list.jsp
+      
+      String pageMove[] = null;
+      // 위에서 내려준 응답메시지에서 :을 기준으로 배열에 담아준다.
+
+      pageMove = result.split(":");
+      // pageMove[0] = forward 저장된다.
+      // pageMove[1] = list.jsp 저장된다.
+      // boardController.execute(req, res);
+
+      for(int i=0;i < pageMove.length; i++){
+        log.info("pageMove[" + i + "] : " + pageMove[i]);
+      }//end of for
+
     } catch (Exception e) {
       log.info(e.toString()); // 에러가 발생하면 예외이름을 출력하시오. - 이름으로 예외를 조회, 검색
     }

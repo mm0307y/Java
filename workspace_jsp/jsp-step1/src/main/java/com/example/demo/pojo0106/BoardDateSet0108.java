@@ -40,6 +40,6 @@ public class BoardDateSet0108 {
     BoardDateSet0108 bset = new BoardDateSet0108();
     bset.detailList();
     System.out.println(bset.detailList);
-    bset.commentList();
+    // bset.commentList();
   }
 }
