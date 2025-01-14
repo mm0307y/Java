@@ -53,7 +53,7 @@ public class BoardController0106 implements Controller0106 {
       // 주소번지(인턴스변수).메서드이름(싱글톤)
       // 메서드 선언이 아직 안되어 있다. - 메서드  선언을 한다는건 리턴타입과 파라미터를 결정하는 일이다.
       // List<Map<String, Object>> bList = boardLogic.boardList();
-      return "forward:list.jsp";
+      return "forward:/board0106/list0114.jsp";
     }
 
     // 글 등록하기 구현
